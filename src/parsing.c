@@ -135,6 +135,7 @@ t_scene check_light(t_scene scene, t_parse_args parsed)
 	scene.spotlight = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
 	scene.light_ratio = args[3];
 	scene.light_color = new_vect(parsed.args[4], parsed.args[5], parsed.args[6]);
+	scene.adj_light_color = rgb_to_int(rgb_color_intensity(new_color_vect(scene.light_color), scene.light_ratio));
 	return (scene);
 }
 

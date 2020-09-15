@@ -1,0 +1,8 @@
+*.swp
+*.o
+DS_Store
+*.code-workspace
+miniRT
+*.a
+sdl_miniRT
+.vscode

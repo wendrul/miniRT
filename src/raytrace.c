@@ -142,7 +142,7 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 			}
 		}
 		current_recursion_depth--;
-		return (color_shade(lum_intensity, scene.figure_list[index], reflective_color));
+		return (color_shade(lum_intensity, scene.figure_list[index], reflective_color) & scene.adj_light_color);
 	}
 	current_recursion_depth--;
 	return (SKY_COLOR);

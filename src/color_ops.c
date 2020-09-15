@@ -22,6 +22,16 @@ t_color new_color(int r, int g, int b)
 	return (color);
 }
 
+t_color new_color_vect(t_vect v)
+{
+	t_color color;
+
+	color.red = (int)v.x;	
+	color.green = (int)v.y;
+	color.blue = (int)v.z;
+	return (color);
+}
+
 t_fcolor new_fcolor(int r, int g, int b)
 {
 	t_fcolor fcolor;
