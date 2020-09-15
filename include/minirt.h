@@ -22,6 +22,9 @@
 # define ZERO_FLOAT_PRECISION 0.0001
 # define MAX_PARSE_FIGURE_ARGUMENTS 20
 # define MAX_FIGURE_NAME_LENGTH 10
+# ifndef USING_SDL
+#  define USING_SDL
+# endif
 
 
 typedef struct	s_point
@@ -101,6 +104,7 @@ typedef struct	s_scene
 	t_vect		resolution;
 	t_point		spotlight;
 	t_vect		light_color;
+	int			adj_light_color;
 	float		light_ratio;
 	t_vect		amb_light_color;
 	float		amb_light_ratio;
@@ -186,6 +190,8 @@ t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident);
 t_vect		new_vect(float x, float y, float z);
 t_vect		true_vect(t_vect v1, t_vect v2);
 
+t_color		new_color_vect(t_vect v);
+int			filter_color(int color, int filter);
 t_color		new_color(int r, int g, int b);
 t_fcolor	new_fcolor(int r, int g, int b);
 t_color		int_to_rgb(int color_int);

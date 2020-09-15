@@ -22,6 +22,22 @@ t_color new_color(int r, int g, int b)
 	return (color);
 }
 
+int  filter_color(int color_int, int filter)
+{
+	t_color fltr_rgb;
+	t_color color;
+	t_vect filter_percents;
+
+	fltr_rgb = int_to_rgb(filter);
+	color = int_to_rgb(color_int);
+	filter_percents = new_vect(fltr_rgb.red, fltr_rgb.green, fltr_rgb.blue);
+	filter_percents = scale(filter_percents, 1.0 / 256.0);
+	color.red =   filter_percents.x * color.red;	
+	color.green = filter_percents.y * color.green;
+	color.blue =  filter_percents.z * color.blue;
+	return (rgb_to_int(color));
+}
+
 t_color new_color_vect(t_vect v)
 {
 	t_color color;
