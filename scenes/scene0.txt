@@ -1,0 +1,9 @@
+# OBJECTS
+# When a value is not applicable for the type of figure use `NA`
+
+
+#   type       center.x    center.y    center.z     radius  color	is_reflective
+
+    Sphere     0            0           15            5           ff0000	0               0.9         1
+    Sphere     0            0           15            2           ffffff	0               0.9         0.2
+    Spotlight  0            20          0   
