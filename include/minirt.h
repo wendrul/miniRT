@@ -87,6 +87,7 @@ typedef struct	s_figure
 	int			(*eclipses)(t_point intersection, struct s_figure self, t_point light);
 }				t_figure;
 
+typedef t_figure	t_hcyl;
 typedef t_figure	t_sphere;
 typedef t_figure	t_plane;
 
