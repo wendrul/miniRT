@@ -117,3 +117,17 @@ double	angle(t_vect v1, t_vect v2)
 {
 	return(acos(dot(v1, v2) / (norm(v1) * norm(v2))));
 }
+
+t_vect projection(t_vect u, t_vect base)
+{
+	float t;
+
+	base = normalize(base);
+	t = dot(u, base);
+	return(scale(base, t));
+}
+
+void print_vect(t_vect vect, char *str)
+{
+	printf("%s - x:%f, y:%f, z:%f\n", str, vect.x, vect.y, vect.z);
+}

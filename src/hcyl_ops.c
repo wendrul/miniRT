@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hcyl_ops.c                                          :+:      :+:    :+:  */
+/*   hcyl_ops.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/06/13 19:55:00 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/24 00:24:01 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 	t_vect		v2;
 	float		t;
 
-	v1 = substract(start, hcyl.center);//just using v1 as a tmp
-	v2 = substract(v1, dot(v1, hcyl.normal));
-	v1 = substract(ray, dot(ray, hcyl.normal));
+	v2 = substract(hcyl.center, projection(hcyl.center, hcyl.normal));
+	v1 = substract(ray, projection(ray, hcyl.normal));
 	equa.a = pow(v1.x, 2) + pow(v1.y, 2) + pow(v1.z, 2);
-	equa.b = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-	equa.c = pow(v2.x, 2) + pow(v2.y, 2) + pow(v2.z, 2) - pow(hcyl.radius, 2);	
+	equa.b = 2 * (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+	equa.c = pow(v2.x, 2) + pow(v2.y, 2) + pow(v2.z, 2) - pow(hcyl.radius, 2);
 	if ((equa.delta = equa.b * equa.b - 4 * equa.a * equa.c) > 0)
 	{
 		equa.sqrt_delta = sqrt(equa.delta);
@@ -82,6 +81,7 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 			result.x = start.x + t * ray.x;
 			result.y = start.y + t * ray.y;
 			result.z = start.z + t * ray.z;
+			if (norm(projection(substract(result, hcyl.center), hcyl.normal)) < hcyl.length)
 			return (result);
 		}
 		t = ((-equa.b - equa.sqrt_delta) / (2 * equa.a)) * -1;
@@ -90,6 +90,8 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 			result.x = start.x + t * ray.x;
 			result.y = start.y + t * ray.y;
 			result.z = start.z + t * ray.z;
+			if (norm(projection(substract(result, hcyl.center), hcyl.normal)) < hcyl.length)
+
 			return (result);
 		}
 	}
@@ -103,9 +105,11 @@ t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl)
 {
     t_vect normal;
 	t_vect projected;
+	t_vect u;
 
-	projected = substract(inter, hcyl.center);
-	normal = normalize(substract(inter, projected));
+	u = substract(inter, hcyl.center);
+	projected = projection(u, hcyl.normal);
+	normal = normalize(substract(u, projected));
     return (normal);
 }
 

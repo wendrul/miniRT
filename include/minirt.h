@@ -161,18 +161,24 @@ typedef struct	s_drawable
 # endif
 
 void		init_win(void);
+void 		print_vect(t_vect vect, char *str); // dont kep lpplz
+
 
 t_sphere	create_sphere(t_parse_args parsed);
 t_plane		create_plane(t_parse_args parsed);
+t_hcyl		create_hcyl(t_parse_args parsed);
 
 t_point		sphere_intersection(t_sphere sphere, t_vect ray, t_point start);
 t_point		plane_intersection(t_plane plane, t_vect ray, t_point start);
+t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start);
 
 t_vect 		get_sphere_normal_vector(t_vect inter, t_figure sphere);
 t_vect		get_plane_normal_vector(t_vect inter, t_figure plane);
+t_vect		get_hcyl_normal_vector(t_vect inter, t_figure hcyl);
 
 int			sphere_eclipses_light(t_point intersection, t_sphere, t_point spot);
 int			plane_eclipses_light(t_point intersection, t_plane plane, t_point light);
+int			hcyl_eclipses_light(t_point intersection, t_hcyl hcyl, t_point spot);
 
 float		norm(t_point vector);
 float		normsqrd(t_point vector);
@@ -183,6 +189,7 @@ t_vect		substract(t_vect v1, t_vect v2);
 t_vect		add(t_vect v1, t_vect v2);
 float		dot(t_point v1, t_point v2);
 float		distance(t_point p1, t_point p2);
+t_vect 		projection(t_vect u, t_vect base);
 void		render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack stack);
 t_vect		**init_tracer();
 t_vect		scale(t_vect v, float scalar);

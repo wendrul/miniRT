@@ -64,11 +64,6 @@ int		color_shade(float intensity, t_figure figure, int reflective_color)
 
 }
 
-void print_vect(t_vect vect, char *str)
-{
-	printf("%s - x:%f, y:%f, z:%f\n", str, vect.x, vect.y, vect.z);
-}
-
 float	get_lum_intensity(t_figure figure, t_point inter, t_point spotlight)
 {
 	t_point	normal;

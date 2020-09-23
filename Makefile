@@ -23,7 +23,8 @@ SRCS		=	src/minirt.c\
 				src/stack.c\
 
 SRCS		+=	src/plane_ops.c\
-				src/sphere_ops.c
+				src/sphere_ops.c\
+				src/hcyl_ops.c
 
 MKDIR_P		=	mkdir -p
 RM			=	rm -f
