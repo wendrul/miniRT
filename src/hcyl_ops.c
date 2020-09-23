@@ -54,16 +54,16 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 {
 	t_polynome	equa;
 	t_vect		result;
-	t_vect		subbed;
+	t_vect		v1;
+	t_vect		v2;
 	float		t;
 
-	subbed = substract(hcyl.center, start);
-	equa.a = 1;
-	equa.b = 2 * dot(ray, subbed);
-	equa.c = subbed.x * subbed.x + subbed.y * subbed.y 
-		+ subbed.z * subbed.z - hcyl.radius * hcyl.radius;
-	//printf("x:%f     y:%f     z:%f \n", hcyl.center.x, hcyl.center.y, hcyl.center.z);
-
+	v1 = substract(start, hcyl.center);//just using v1 as a tmp
+	v2 = substract(v1, dot(v1, hcyl.normal));
+	v1 = substract(ray, dot(ray, hcyl.normal));
+	equa.a = pow(v1.x, 2) + pow(v1.y, 2) + pow(v1.z, 2);
+	equa.b = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	equa.c = pow(v2.x, 2) + pow(v2.y, 2) + pow(v2.z, 2) - pow(hcyl.radius, 2);	
 	if ((equa.delta = equa.b * equa.b - 4 * equa.a * equa.c) > 0)
 	{
 		equa.sqrt_delta = sqrt(equa.delta);
@@ -93,8 +93,10 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl)
 {
     t_vect normal;
+	t_vect projected;
 
-    normal = scale(true_vect(hcyl.center, inter), 1.0 / hcyl.radius);
+	projected = substract(inter, hcyl.center);
+	normal = normalize(substract(inter, projected));
     return (normal);
 }
 
