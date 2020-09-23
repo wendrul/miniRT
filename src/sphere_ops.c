@@ -17,10 +17,10 @@ char*		check_sphere_args(t_parse_args parsed)
 	float args[MAX_PARSE_FIGURE_ARGUMENTS];
 
 	ft_memcpy(args, parsed.args, parsed.size * sizeof(float));
-	if (parsed.size < 7 )
+	if (parsed.size < 7)
 		return ("Not enough arguments for a sphere.");
 	if (args[3] < 0)
-		return ("Sphere radius is negative");
+		return ("Sphere diameter is negative");
 	if (args[4] > 255 || args[5] > 255 || args[6] > 255 ||
 		args[4] < 0   || args[5] < 0   || args[6] < 0)
 		return ("Invalid RGB color values for sphere (must be values between 0 and 255 per color).");
@@ -39,7 +39,7 @@ t_sphere	create_sphere(t_parse_args parsed)
 	sphere.y = parsed.args[1];
 	sphere.z = parsed.args[2];
 	sphere.center = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
-	sphere.radius = parsed.args[3];
+	sphere.radius = parsed.args[3] / 2;
 	sphere.color = rgb_to_int(new_color(parsed.args[4], parsed.args[5], parsed.args[6]));
 	if (parsed.size > 7)
 		sphere.is_reflective = parsed.args[7];

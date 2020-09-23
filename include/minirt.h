@@ -74,6 +74,7 @@ typedef struct	s_figure
 	int			color;
 	float		is_reflective;
 	float		radius;
+	float		length;
 	float		x;
 	float		y;
 	float		z;
