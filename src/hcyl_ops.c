@@ -1,9 +1,9 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hcyl_ops.c                                       :+:      :+:    :+:   */
+/*   hcyl_ops.c                                          :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
 /*   Updated: 2020/06/13 19:55:00 by ede-thom         ###   ########.fr       */
@@ -17,12 +17,17 @@ char*		check_hcyl_args(t_parse_args parsed)
 	float args[MAX_PARSE_FIGURE_ARGUMENTS];
 
 	ft_memcpy(args, parsed.args, parsed.size * sizeof(float));
-	if (parsed.size < 7 )
+	if (parsed.size < 11)
 		return ("Not enough arguments for a hollow cylinder.");
-	if (args[3] < 0)
-		return ("Hollow cylinder radius is negative");
-	if (args[4] > 255 || args[5] > 255 || args[6] > 255 ||
-		args[4] < 0   || args[5] < 0   || args[6] < 0)
+    if (args[3] > 1  || args[4] > 1  || args[5] > 1 ||
+		args[3] < -1 || args[4] < -1 || args[5] < -1)
+		return ("Hollow cylinder orientation vector values not in range (-1, 1).");
+	if (args[6] < 0)
+		return ("Hollow cylinder diameter is negative");
+    if (args[7] < 0)
+		return ("Hollow cylinder height is negative");
+	if (args[8] > 255 || args[9] > 255 || args[10] > 255 ||
+		args[8] < 0   || args[9] < 0   || args[10] < 0)
 		return ("Invalid RGB color values for hollow cylinder (must be values between 0 and 255 per color).");
 	return (NULL);
 }
@@ -34,15 +39,19 @@ t_hcyl	create_hcyl(t_parse_args parsed)
 	msg = check_hcyl_args(parsed);
 	if (msg != NULL)
 		clean_exit(0, msg);
-
 	hcyl.x = parsed.args[0];
 	hcyl.y = parsed.args[1];
 	hcyl.z = parsed.args[2];
 	hcyl.center = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
-	hcyl.radius = parsed.args[3];
-	hcyl.color = rgb_to_int(new_color(parsed.args[4], parsed.args[5], parsed.args[6]));
-	if (parsed.size > 7)
-		hcyl.is_reflective = parsed.args[7];
+    hcyl.normal.x = parsed.args[3];
+	hcyl.normal.y = parsed.args[4];
+	hcyl.normal.z = parsed.args[5];
+    hcyl.normal = normalize(hcyl.normal);
+	hcyl.radius = parsed.args[6] / 2;
+    hcyl.length = parsed.args[7];
+	hcyl.color = rgb_to_int(new_color(parsed.args[8], parsed.args[9], parsed.args[10]));
+	if (parsed.size > 11)
+		hcyl.is_reflective = parsed.args[11];
 	hcyl.intersection = hcyl_intersection;
 	hcyl.get_normal_at = get_hcyl_normal_vector;
 	hcyl.eclipses = hcyl_eclipses_light;
