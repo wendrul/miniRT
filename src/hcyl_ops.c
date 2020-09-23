@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/24 00:24:01 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/24 01:18:26 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 	t_vect		v2;
 	float		t;
 
+	v1 = substract(projection(start, hcyl.normal), start);
 	v2 = substract(hcyl.center, projection(hcyl.center, hcyl.normal));
+	v2 = add(v1, v2);
 	v1 = substract(ray, projection(ray, hcyl.normal));
 	equa.a = pow(v1.x, 2) + pow(v1.y, 2) + pow(v1.z, 2);
 	equa.b = 2 * (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 	equa.c = pow(v2.x, 2) + pow(v2.y, 2) + pow(v2.z, 2) - pow(hcyl.radius, 2);
-	if ((equa.delta = equa.b * equa.b - 4 * equa.a * equa.c) > 0)
+	if ((equa.delta = equa.b * equa.b - 4 * equa.a * equa.c) > EPSILON)
 	{
 		equa.sqrt_delta = sqrt(equa.delta);
 		t = ((-equa.b + equa.sqrt_delta) / (2 * equa.a)) * -1;
@@ -81,8 +83,9 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 			result.x = start.x + t * ray.x;
 			result.y = start.y + t * ray.y;
 			result.z = start.z + t * ray.z;
-			if (norm(projection(substract(result, hcyl.center), hcyl.normal)) < hcyl.length)
-			return (result);
+			t = dot(substract(result, hcyl.center), hcyl.normal);
+			if (t < hcyl.length && t > 0)
+				return (result);
 		}
 		t = ((-equa.b - equa.sqrt_delta) / (2 * equa.a)) * -1;
 		if (t > 0)
@@ -90,8 +93,8 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 			result.x = start.x + t * ray.x;
 			result.y = start.y + t * ray.y;
 			result.z = start.z + t * ray.z;
-			if (norm(projection(substract(result, hcyl.center), hcyl.normal)) < hcyl.length)
-
+			t = dot(substract(result, hcyl.center), hcyl.normal);
+			if (t < hcyl.length && t > 0)
 			return (result);
 		}
 	}
@@ -113,19 +116,20 @@ t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl)
     return (normal);
 }
 
-int		hcyl_eclipses_light(t_point intersection, t_hcyl hcyl, t_point spot)
+int		hcyl_eclipses_light(t_point inter, t_hcyl hcyl, t_point spot)
 {
-	t_vect	intersection_to_spot;
+	t_vect	inter_to_spot;
+	t_vect	inter_to_cyl;
+	t_vect	cyl_inter;
 
 	if (hcyl.is_reflective)
 		return (0);
-	intersection_to_spot = normalize(vector(intersection, spot));
-	intersection_to_spot = scale(intersection_to_spot, distance(intersection, hcyl.center));
-	intersection_to_spot = add(intersection, intersection_to_spot);
-	if (distance(intersection_to_spot, hcyl.center) < hcyl.radius)
-	{
-		if (distance(intersection, spot) > distance(intersection, hcyl.center))
-			return (1);
-	}
-	return (0);
+	inter_to_spot = substract(spot, inter);
+	cyl_inter = hcyl_intersection(hcyl, normalize(inter_to_spot), inter);
+	//if (norm(cyl_inter) >= RENDER_DISTANCE - 1)
+	//	return(0);
+	inter_to_cyl = substract(cyl_inter, inter);
+	if (norm(inter_to_spot) < norm(inter_to_cyl))
+		return(0);
+	return (1);
 }
