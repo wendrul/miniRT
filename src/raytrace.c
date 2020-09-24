@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_vect	**init_tracer()
+t_vect	**init_tracer(t_scene scene)
 {
 	t_vect	**ray_table;
 	t_point	start;
@@ -20,6 +20,8 @@ t_vect	**init_tracer()
 	t_vect	step;
 	int		i;
 	int		j;
+
+	(void)scene;
 
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * WIN_HEIGHT)))
 		exit(0);
