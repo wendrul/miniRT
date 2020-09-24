@@ -61,9 +61,12 @@ void	add_drawable(t_drawable **drawables, char *name, t_figure (*create_func)(t_
 	head->next = new;
 }
 
-int			name_cmp(char *fixed, char *var)
+int            name_cmp(char *fixed, char *var)
 {
-	return (ft_strncmp(fixed, var, ft_strlen(var)));
+    int len;
+    
+    len = ft_max(ft_strlen(var), ft_strlen(fixed));
+    return (ft_strncmp(fixed, var, len));
 }
 
 int		tab_del_return(char **tab, int ret)
@@ -89,7 +92,7 @@ int		is_valid_figure(char *raw_line, t_drawable *drawables)
         return (tab_del_return(line, 0));
     while(drawables)
     {
-        if (ft_strncmp(drawables->name, line[0], ft_strlen(line[0])) == 0)
+        if (name_cmp(drawables->name, line[0]) == 0)
             return (tab_del_return(line, 1));
         drawables = drawables->next;
     }
@@ -161,6 +164,7 @@ t_scene	check_camera(t_scene scene, t_parse_args parsed)
 	float args[MAX_PARSE_FIGURE_ARGUMENTS];
 
 	ft_memcpy(args, parsed.args, parsed.size * sizeof(float));
+
 	if (parsed.size != 7)
 		clean_exit(0, "Wrong number of arguments for camera.");
 	if (args[3] > 1  || args[4] > 1  || args[5] > 1 ||
