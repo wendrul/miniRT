@@ -162,7 +162,7 @@ typedef struct	s_drawable
 	t_sdl_win g_sdl_win;
 # endif
 
-void		init_win(void);
+void		init_win(t_scene scene);
 void 		print_vect(t_vect vect, char *str); // dont kep lpplz
 
 
