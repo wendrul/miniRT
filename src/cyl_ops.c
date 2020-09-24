@@ -35,11 +35,16 @@ char*		check_cyl_args(t_parse_args parsed)
 t_cyl	create_cyl(t_parse_args parsed)
 {
 	char *msg;
+	t_cyl cyl;
 
 	msg = check_cyl_args(parsed);
 	if (msg != NULL)
 		clean_exit(0, msg);
-	return ((t_cyl)create_hcyl(parsed));
+	cyl = (t_cyl)create_hcyl(parsed);
+	cyl.intersection = cyl_intersection;
+	cyl.eclipses = cyl_eclipses_light;
+	cyl.get_normal_at = get_cyl_normal_vector;
+	return (cyl);
 }
 
 t_point		cyl_intersection(t_cyl cyl, t_vect ray, t_point start)
@@ -57,7 +62,7 @@ t_point		cyl_intersection(t_cyl cyl, t_vect ray, t_point start)
 	cylI = hcyl_intersection(cyl, ray, start);
     bottomI = circle_intersection(bottom, ray, start);
     topI = circle_intersection(top, ray, start);
-    if (distance(cylI, start) > distance((distance(bottomI, start) < distance(topI, start) ? bottomI : topI), start))
+	if (distance(cylI, start) > distance((distance(bottomI, start) < distance(topI, start) ? bottomI : topI), start))
     {
         return (distance(bottomI, start) < distance(topI, start) ? bottomI : topI);
     }
@@ -66,17 +71,29 @@ t_point		cyl_intersection(t_cyl cyl, t_vect ray, t_point start)
 
 t_vect  get_cyl_normal_vector(t_vect inter, t_figure cyl, t_point start)
 {
-    t_vect normal;
-	t_vect projected;
-	t_vect u;
+    t_circle bottom;
+    t_circle top;
+    t_point cylI;
+    t_point bottomI;
+    t_point topI;
+	t_figure part_hit;
 
-	u = substract(inter, cyl.center);
-	projected = projection(u, cyl.normal);
-	normal = normalize(substract(u, projected));
-	if (dot(substract(inter,start), normal) < 0)
-		return (normal);
-	else
-		return (scale(normal, -1));
+    bottom = cyl;
+    top = cyl;
+    top.center = add(cyl.center, scale(cyl.normal, cyl.length));
+    top.normal = scale(cyl.normal, -1);
+	cyl.get_normal_at = get_hcyl_normal_vector;
+	top.get_normal_at = get_circle_normal_vector;
+	bottom.get_normal_at = get_circle_normal_vector;
+	cylI = hcyl_intersection(cyl, vector(start, inter), start);
+    bottomI = circle_intersection(bottom, vector(start, inter), start);
+    topI = circle_intersection(top, vector(start, inter), start);
+    if (distance(cylI, start) > distance((distance(bottomI, start) < distance(topI, start) ? bottomI : topI), start))
+        part_hit = distance(bottomI, start) < distance(topI, start) ? bottom : top;
+    else
+		part_hit = cyl;
+	return (part_hit.get_normal_at(inter, part_hit, start));
+	
 }
 
 int		cyl_eclipses_light(t_point inter, t_cyl cyl, t_point spot)
