@@ -50,12 +50,10 @@ t_point		cyl_intersection(t_cyl cyl, t_vect ray, t_point start)
     t_point bottomI;
     t_point topI;
 
-    bottom.radius = cyl.radius;
-    top.radius = cyl.radius;
-    bottom.center = cyl.center;
+    bottom = cyl;
+    top = cyl;
     top.center = add(cyl.center, scale(cyl.normal, cyl.length));
     bottom.normal = scale(cyl.normal, -1);
-    top.normal = cyl.normal;
 	cylI = hcyl_intersection(cyl, ray, start);
     bottomI = circle_intersection(bottom, ray, start);
     topI = circle_intersection(top, ray, start);
