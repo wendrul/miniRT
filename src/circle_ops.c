@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/24 14:01:21 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/24 15:32:01 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		    get_circle_side(t_point point, t_circle circle)
 t_vect      get_circle_normal_vector(t_vect inter, t_figure circle, t_point start)
 {
 	(void)inter;
-	if (dot(substract(inter,start), circle.normal) > 0)
+	if (dot(substract(inter,start), circle.normal) < 0)
     	return (circle.normal);
 	else
 		return(scale(circle.normal, -1));
