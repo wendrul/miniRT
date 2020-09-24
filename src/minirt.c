@@ -27,14 +27,14 @@ int		main(int argc, char **argv)
 		ft_putendl_fd("pls file", 1);
 		return (0);
 	}
-	ray_table = init_tracer();
 	init_win();
 	drawables = NULL;
 	add_drawable(&drawables, "sp", create_sphere);
 	add_drawable(&drawables, "pl", create_plane);
 	add_drawable(&drawables, "hcy", create_hcyl);
 	scene = parse_scene(argv[1], drawables);
-	start = new_vect(0, 0, 0);
+	start = scene.camera;
+	ray_table = init_tracer(scene);
 	stack = create_stack(MAX_RECURSION_DEPTH + 69, 1);
 	clock_t begin = clock();
 

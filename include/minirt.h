@@ -191,7 +191,7 @@ float		dot(t_point v1, t_point v2);
 float		distance(t_point p1, t_point p2);
 t_vect 		projection(t_vect u, t_vect base);
 void		render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack stack);
-t_vect		**init_tracer();
+t_vect		**init_tracer(t_scene scene);
 t_vect		scale(t_vect v, float scalar);
 
 t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident, t_point start);

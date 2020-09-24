@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_vect	**init_tracer()
+t_vect	**init_tracer(t_scene scene)
 {
 	t_vect	**ray_table;
 	t_point	start;
