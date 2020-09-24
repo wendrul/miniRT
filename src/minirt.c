@@ -33,6 +33,7 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "sp", create_sphere);
 	add_drawable(&drawables, "pl", create_plane);
 	add_drawable(&drawables, "hcy", create_hcyl);
+	add_drawable(&drawables, "ci", create_circle);
 	scene = parse_scene(argv[1], drawables);
 	start = new_vect(0, 0, 0);
 	stack = create_stack(MAX_RECURSION_DEPTH + 69, 1);
