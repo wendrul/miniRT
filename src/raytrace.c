@@ -21,6 +21,8 @@ t_vect	**init_tracer(t_scene scene)
 	int		i;
 	int		j;
 
+	(void)scene;
+
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * WIN_HEIGHT)))
 		exit(0);
 	start.x = -sin(FOV_W);
