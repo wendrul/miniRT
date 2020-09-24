@@ -45,6 +45,7 @@ t_plane	create_plane(t_parse_args parsed)
 	plane.normal.z = parsed.args[5];
     plane.normal = normalize(plane.normal);
 	plane.color = rgb_to_int(new_color(parsed.args[6], parsed.args[7], parsed.args[8]));
+	plane.is_reflective = 0;
 	if (parsed.size > 9)
 		plane.is_reflective = parsed.args[9];
 	plane.intersection = plane_intersection;

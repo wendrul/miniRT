@@ -50,6 +50,7 @@ t_hcyl	create_hcyl(t_parse_args parsed)
 	hcyl.radius = parsed.args[6] / 2;
     hcyl.length = parsed.args[7];
 	hcyl.color = rgb_to_int(new_color(parsed.args[8], parsed.args[9], parsed.args[10]));
+    hcyl.is_reflective = 0;
 	if (parsed.size > 11)
 		hcyl.is_reflective = parsed.args[11];
 	hcyl.intersection = hcyl_intersection;

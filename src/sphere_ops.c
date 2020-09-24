@@ -41,6 +41,7 @@ t_sphere	create_sphere(t_parse_args parsed)
 	sphere.center = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
 	sphere.radius = parsed.args[3] / 2;
 	sphere.color = rgb_to_int(new_color(parsed.args[4], parsed.args[5], parsed.args[6]));
+	sphere.is_reflective = 0;
 	if (parsed.size > 7)
 		sphere.is_reflective = parsed.args[7];
 	sphere.intersection = sphere_intersection;
