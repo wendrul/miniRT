@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/24 01:18:26 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/24 01:40:11 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 	return (result);
 }
 
-t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl)
+t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl, t_point start)
 {
     t_vect normal;
 	t_vect projected;
@@ -113,7 +113,10 @@ t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl)
 	u = substract(inter, hcyl.center);
 	projected = projection(u, hcyl.normal);
 	normal = normalize(substract(u, projected));
-    return (normal);
+	if (dot(substract(inter,start), normal) < 0)
+		return (normal);
+	else
+		return (scale(normal, -1));
 }
 
 int		hcyl_eclipses_light(t_point inter, t_hcyl hcyl, t_point spot)

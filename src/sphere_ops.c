@@ -90,12 +90,15 @@ t_point		sphere_intersection(t_sphere sphere, t_vect ray, t_point start)
 	return (result);
 }
 
-t_vect  get_sphere_normal_vector(t_vect inter, t_figure sphere)
+t_vect  get_sphere_normal_vector(t_vect inter, t_figure sphere, t_point start)
 {
     t_vect normal;
-
+	(void)start;
     normal = scale(true_vect(sphere.center, inter), 1.0 / sphere.radius);
-    return (normal);
+	if (dot(substract(inter,start), normal) < 0)
+		return (normal);
+	else
+		return (scale(normal, -1));
 }
 
 int		sphere_eclipses_light(t_point intersection, t_sphere sphere, t_point spot)

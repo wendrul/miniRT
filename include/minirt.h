@@ -84,7 +84,7 @@ typedef struct	s_figure
 	t_vect      normal;
 	t_box		box;
 	t_vect		(*intersection)(struct s_figure self, t_vect ray, t_point start);
-	t_vect		(*get_normal_at)(t_vect inter, struct s_figure self);
+	t_vect		(*get_normal_at)(t_vect inter, struct s_figure self, t_point start);
 	int			(*eclipses)(t_point intersection, struct s_figure self, t_point light);
 }				t_figure;
 
@@ -172,9 +172,9 @@ t_point		sphere_intersection(t_sphere sphere, t_vect ray, t_point start);
 t_point		plane_intersection(t_plane plane, t_vect ray, t_point start);
 t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start);
 
-t_vect 		get_sphere_normal_vector(t_vect inter, t_figure sphere);
-t_vect		get_plane_normal_vector(t_vect inter, t_figure plane);
-t_vect		get_hcyl_normal_vector(t_vect inter, t_figure hcyl);
+t_vect 		get_sphere_normal_vector(t_vect inter, t_figure sphere, t_point start);
+t_vect		get_plane_normal_vector(t_vect inter, t_figure plane, t_point start);
+t_vect		get_hcyl_normal_vector(t_vect inter, t_figure hcyl, t_point start);
 
 int			sphere_eclipses_light(t_point intersection, t_sphere, t_point spot);
 int			plane_eclipses_light(t_point intersection, t_plane plane, t_point light);
@@ -194,7 +194,7 @@ void		render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack s
 t_vect		**init_tracer();
 t_vect		scale(t_vect v, float scalar);
 
-t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident);
+t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident, t_point start);
 
 t_vect		new_vect(float x, float y, float z);
 t_vect		true_vect(t_vect v1, t_vect v2);

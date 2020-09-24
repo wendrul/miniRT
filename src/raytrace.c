@@ -64,13 +64,13 @@ int		color_shade(float intensity, t_figure figure, int reflective_color)
 
 }
 
-float	get_lum_intensity(t_figure figure, t_point inter, t_point spotlight)
+float	get_lum_intensity(t_figure figure, t_point inter, t_point spotlight, t_point start)
 {
 	t_point	normal;
 	t_point	ray_to_light;
 	float	result;
 
-	normal = figure.get_normal_at(inter, figure);
+	normal = figure.get_normal_at(inter, figure, start);
 	ray_to_light = vector(inter, spotlight);
 	if (ft_strncmp(figure.name, "pl", 2) == 0)
 	{
@@ -120,11 +120,11 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 	{
 		if (scene.figure_list[index].is_reflective > 0 && index != peek_index(stack))
 		{
-			reflected_dir = get_reflective_vector(scene.figure_list[index], closest_intersection, ray);
+			reflected_dir = get_reflective_vector(scene.figure_list[index], closest_intersection, ray, start);
 			modified_start = add(closest_intersection, scale(reflected_dir, EPSILON)); 
 			reflective_color = trace_ray(reflected_dir, scene, modified_start, index, 0, stack);
 		}
-		lum_intensity = get_lum_intensity(scene.figure_list[index], closest_intersection, scene.spotlight);
+		lum_intensity = get_lum_intensity(scene.figure_list[index], closest_intersection, scene.spotlight, start);
 		i = -1;
 		while (++i < scene.figure_count)
 		{
