@@ -89,6 +89,7 @@ typedef struct	s_figure
 }				t_figure;
 
 typedef t_figure	t_hcyl;
+typedef t_figure	t_cyl;
 typedef t_figure	t_sphere;
 typedef t_figure	t_plane;
 typedef t_figure	t_circle;
@@ -168,22 +169,26 @@ void 		print_vect(t_vect vect, char *str); // dont kep lpplz
 t_sphere	create_sphere(t_parse_args parsed);
 t_plane		create_plane(t_parse_args parsed);
 t_hcyl		create_hcyl(t_parse_args parsed);
+t_cyl		create_cyl(t_parse_args parsed);
 t_circle	create_circle(t_parse_args parsed);
 
 t_point		sphere_intersection(t_sphere sphere, t_vect ray, t_point start);
 t_point		plane_intersection(t_plane plane, t_vect ray, t_point start);
 t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start);
-t_point		circle_intersection(t_hcyl hcyl, t_vect ray, t_point start);
+t_point		cyl_intersection(t_cyl cyl, t_vect ray, t_point start);
+t_point		circle_intersection(t_circle circle, t_vect ray, t_point start);
 
 t_vect 		get_sphere_normal_vector(t_vect inter, t_figure sphere, t_point start);
 t_vect		get_plane_normal_vector(t_vect inter, t_figure plane, t_point start);
 t_vect		get_hcyl_normal_vector(t_vect inter, t_figure hcyl, t_point start);
-t_vect		get_circle_normal_vector(t_vect inter, t_figure hcyl, t_point start);
+t_vect		get_cyl_normal_vector(t_vect inter, t_figure cyl, t_point start);
+t_vect		get_circle_normal_vector(t_vect inter, t_figure circle, t_point start);
 
 int			sphere_eclipses_light(t_point intersection, t_sphere, t_point spot);
 int			plane_eclipses_light(t_point intersection, t_plane plane, t_point light);
 int			hcyl_eclipses_light(t_point intersection, t_hcyl hcyl, t_point spot);
-int			circle_eclipses_light(t_point intersection, t_hcyl hcyl, t_point spot);
+int			cyl_eclipses_light(t_point intersection, t_cyl cyl, t_point spot);
+int			circle_eclipses_light(t_point intersection, t_circle circle, t_point spot);
 
 float		norm(t_point vector);
 float		normsqrd(t_point vector);
@@ -198,6 +203,7 @@ t_vect 		projection(t_vect u, t_vect base);
 void		render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack stack);
 t_vect		**init_tracer(t_scene scene);
 t_vect		scale(t_vect v, float scalar);
+int			figure_eclipses_light(t_vect inter, t_figure shape, t_vect light);
 
 t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident, t_point start);
 

@@ -25,7 +25,6 @@ float	normsqrd(t_point vector)
 t_point normalize(t_point vector)
 {
 	float norme;
-
 	norme = norm(vector);
 	vector.x /= norme;
 	vector.y /= norme;

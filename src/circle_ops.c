@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/24 14:01:21 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/25 11:24:49 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,40 +85,17 @@ t_point     circle_intersection(t_circle circle, t_vect ray, t_point start)
     return (result);
 }
 
-int		    get_circle_side(t_point point, t_circle circle)
-{
-	float dist;
-	float norm_point_dist;
-	t_vect norm_point;
-
-	dist = distance(circle.center, point);
-	norm_point = add(circle.center, circle.normal);
-	norm_point_dist = distance(norm_point, point);
-	return (dist < norm_point_dist ? -1 : 1);
-}
 
 t_vect      get_circle_normal_vector(t_vect inter, t_figure circle, t_point start)
 {
-	(void)inter;
-	if (dot(substract(inter,start), circle.normal) > 0)
-    	return (circle.normal);
+	if (dot(substract(inter, start), circle.normal) < 0)
+		return (circle.normal);
 	else
 		return(scale(circle.normal, -1));
 }
 
 int			circle_eclipses_light(t_point inter, t_circle circle, t_point light)
 {
-	t_vect	inter_to_spot;
-	t_vect	inter_to_cir;
-	t_vect	cir_inter;
-
-	if (circle.is_reflective)
-		return (0);
-	inter_to_spot = substract(light, inter);
-	cir_inter = circle.intersection(circle, normalize(inter_to_spot), inter);
-	inter_to_cir = substract(cir_inter, inter);
-	if (norm(inter_to_spot) < norm(inter_to_cir))
-		return(0);
-	return (1);
+	return (figure_eclipses_light(inter, circle, light));
 }
 

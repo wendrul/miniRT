@@ -74,10 +74,6 @@ float	get_lum_intensity(t_figure figure, t_point inter, t_point spotlight, t_poi
 
 	normal = figure.get_normal_at(inter, figure, start);
 	ray_to_light = vector(inter, spotlight);
-	if (ft_strncmp(figure.name, "pl", 2) == 0)
-	{
-		return fabs(dot(normal, ray_to_light));
-	}
 	if ((result = dot(normal, ray_to_light)) > 0)
 		return (result);
 	return (0);
