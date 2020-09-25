@@ -36,7 +36,7 @@ int		main(int argc, char **argv)
 	scene = parse_scene(argv[1], drawables);
 	start = scene.camera;
 	ray_table = init_tracer(scene);
-	init_win();
+	init_win(scene);
 	stack = create_stack(MAX_RECURSION_DEPTH + 69, 1);
 	clock_t begin = clock();
 

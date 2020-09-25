@@ -9,9 +9,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIN_HEIGHT 1000
+# define WIN_HEIGHT 700
 # define EPSILON 0.0001
-# define WIN_WIDTH 1000
+# define WIN_WIDTH 700
 # define RENDER_DISTANCE 100000000
 # define AMBIENCE_LIGHTING 0.03
 # define SKY_COLOR 0x1a3766
