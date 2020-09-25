@@ -27,7 +27,7 @@ int	gamma_corrected(int color, double one_over_gamma)
 		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 			printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError() ) ;
 		else
-			g_sdl_win.window = SDL_CreateWindow( "Wolf3D by us", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
+			g_sdl_win.window = SDL_CreateWindow( "Raytracing in a bad language", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scene.resolution.x, scene.resolution.y, SDL_WINDOW_SHOWN);
 		g_sdl_win.screen = SDL_GetWindowSurface(g_sdl_win.window);
 	}
 
@@ -40,10 +40,10 @@ int	gamma_corrected(int color, double one_over_gamma)
 
 		one_over_gamma = 1 / SCREEN_GAMMA;
 		i = -1;
-		while (++i < WIN_HEIGHT)
+		while (++i < scene.resolution.y)
 		{
 			j = -1;
-			while (++j < WIN_WIDTH)
+			while (++j < scene.resolution.x)
 			{
 				color = trace_ray(ray_table[i][j], scene, start, -1, 0, stack);
 				put_pixel32(g_sdl_win.screen, j, i, gamma_corrected(color, one_over_gamma));
@@ -87,8 +87,8 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 	void	mlx_init_win(t_scene scene)
 	{
 		g_win.mlx = mlx_init();
-		g_win.win = mlx_new_window(g_win.mlx, WIN_HEIGHT, WIN_WIDTH, "miniRT");
-		g_win.img = mlx_new_image(g_win.mlx, WIN_HEIGHT, WIN_WIDTH);
+		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.y, WIN_WIDTH, "miniRT");
+		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.x, WIN_WIDTH);
 		g_win.buffer = (int*)mlx_get_data_addr(g_win.img, &g_win.bpp, &g_win.s_l, &g_win.endian);
 	}
 
@@ -101,13 +101,13 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 
 		one_over_gamma = 1 / SCREEN_GAMMA;
 		i = -1;
-		while (++i < WIN_HEIGHT)
+		while (++i < scene.resolution.y)
 		{
 			j = -1;
-			while (++j < WIN_WIDTH)
+			while (++j < scene.resolution.x)
 			{
 				color = trace_ray(ray_table[i][j], scene, start, -1, 0, stack);
-				g_win.buffer[j + i * WIN_HEIGHT] = gamma_corrected(color, one_over_gamma);
+				g_win.buffer[j + i * scene.resolution.y] = gamma_corrected(color, one_over_gamma);
 			}
 		}
 		mlx_put_image_to_window(g_win.mlx, g_win.win, g_win.img, 0, 0);

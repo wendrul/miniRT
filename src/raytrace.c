@@ -23,7 +23,7 @@ t_vect	**init_tracer(t_scene scene)
 
 	(void)scene;
 
-	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * WIN_HEIGHT)))
+	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * scene.resolution.y)))
 		exit(0);
 	start.x = -sin(FOV_W);
 	start.y = sin(FOV_H);	
@@ -31,15 +31,15 @@ t_vect	**init_tracer(t_scene scene)
 	end.x = sin(FOV_W);
 	end.y = -sin(FOV_H);
 	end.z = 1;
-	step.x = ((end.x - start.x) / (float)WIN_WIDTH);
-	step.y = ((end.y - start.y) / (float)WIN_HEIGHT);
+	step.x = ((end.x - start.x) / (float)scene.resolution.x);
+	step.y = ((end.y - start.y) / (float)scene.resolution.y);
 	i = -1;
-	while (++i < WIN_HEIGHT)
+	while (++i < scene.resolution.y)
 	{
-		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * WIN_WIDTH)))
+		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * scene.resolution.x)))
 			exit(0);
 		j = -1;
-		while (++j < WIN_WIDTH)
+		while (++j < scene.resolution.x)
 		{
 			ray_table[i][j].x = start.x + step.x * (float)j;
 			ray_table[i][j].y = start.y + step.y * (float)i; //daniel doubts, Etienne owns
