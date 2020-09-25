@@ -27,7 +27,8 @@ SRCS		+=	src/plane_ops.c\
 				src/hcyl_ops.c\
 				src/circle_ops.c\
 				src/cyl_ops.c\
-				src/square_ops.c
+				src/square_ops.c\
+				src/triangle_ops.c
 
 MKDIR_P		=	mkdir -p
 RM			=	rm -f
