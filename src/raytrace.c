@@ -21,15 +21,14 @@ t_vect	**init_tracer(t_scene scene)
 	int		i;
 	int		j;
 
-	(void)scene;
-
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * scene.resolution.y)))
 		exit(0);
-	start.x = -sin(FOV_W);
-	start.y = sin(FOV_H);	
+	start = scene.cam_rotation;
+	start.x = -sin(scene.fov);
+	start.y = sin(scene.fov);	
 	start.z = 1;
-	end.x = sin(FOV_W);
-	end.y = -sin(FOV_H);
+	end.x = sin(scene.fov);
+	end.y = -sin(scene.fov);
 	end.z = 1;
 	step.x = ((end.x - start.x) / (float)scene.resolution.x);
 	step.y = ((end.y - start.y) / (float)scene.resolution.y);
