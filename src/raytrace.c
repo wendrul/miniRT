@@ -12,6 +12,23 @@
 
 #include "minirt.h"
 
+t_vect **turn_ray_table(t_vect **ray_table, t_scene scene, t_vect cur_orientation)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < scene.resolution.y)
+	{
+		j = -1;
+		while (++j < scene.resolution.x)
+		{
+			ray_table[i][j] = apply_rotation(ray_table[i][j], cur_orientation, scene.cam_rotation);
+		}
+	}
+	return (ray_table);
+}
+
 t_vect	**init_tracer(t_scene scene)
 {
 	t_vect	**ray_table;
@@ -46,6 +63,7 @@ t_vect	**init_tracer(t_scene scene)
 			ray_table[i][j] = normalize(ray_table[i][j]);
 		}
 	}
+	//ray_table = turn_ray_table(ray_table, scene, new_vect(0, 0, 1));
 	return (ray_table);
 }
 

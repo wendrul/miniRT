@@ -143,18 +143,17 @@ t_vect	apply_rotation(t_vect u, t_vect ref, t_vect model)
 
 	rot = cross(ref, model);
 	rot = scale(normalize(rot), dot(ref, model));
-	ret.x = ret.x   * (cos(rot.z) * cos(rot.y)) 
-	+ ret.y * (cos(rot.z) * sin(rot.y) * sin(rot.x) - sin(rot.z) * cos(rot.x)) 
-	+ ret.z * (cos(rot.z) * sin(rot.y) * cos(rot.x) + sin(rot.z) * sin(rot.x));
-	ret.y = ret.x   * (sin(rot.z) * cos(rot.y))
-	+ ret.y * (sin(rot.z) * sin(rot.y) * sin(rot.x) + cos(rot.z) * cos(rot.x))
-	+ ret.z * (sin(rot.z) * sin(rot.y) * cos(rot.x) - cos(rot.z) * cos(rot.x));
-	ret.z = ret.x   * (-sin(rot.z)) 
-	+ ret.y * (cos(rot.y) * sin(rot.x)) 
-	+ ret.z * (cos(rot.y) * cos(rot.x));
+	ret.x = u.x   * (cos(rot.z) * cos(rot.y)) 
+	+ u.y * (cos(rot.z) * sin(rot.y) * sin(rot.x) - sin(rot.z) * cos(rot.x)) 
+	+ u.z * (cos(rot.z) * sin(rot.y) * cos(rot.x) + sin(rot.z) * sin(rot.x));
+	ret.y = u.x   * (sin(rot.z) * cos(rot.y))
+	+ u.y * (sin(rot.z) * sin(rot.y) * sin(rot.x) + cos(rot.z) * cos(rot.x))
+	+ u.z * (sin(rot.z) * sin(rot.y) * cos(rot.x) - cos(rot.z) * cos(rot.x));
+	ret.z = u.x   * (-sin(rot.z)) 
+	+ u.y * (cos(rot.y) * sin(rot.x)) 
+	+ u.z * (cos(rot.y) * cos(rot.x));
+	return (ret);
 }
-
-t_vect 
 
 void print_vect(t_vect vect, char *str)
 {
