@@ -21,11 +21,11 @@ int		main(int argc, char **argv)
 	t_scene		scene;
 	t_drawable	*drawables;
 	t_r_stack	stack;
-	(void)argv;
+
 	if (argc != 2)
 	{
 		ft_putendl_fd("pls file", 1);
-		//return (0);
+		return (0);
 	}
 	init_win();
 	drawables = NULL;
@@ -34,7 +34,7 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "hcy", create_hcyl);
 	add_drawable(&drawables, "ci", create_circle);
 	add_drawable(&drawables, "cy", create_cyl);
-	scene = parse_scene("scenes/bug.rt", drawables);
+	scene = parse_scene(argv[1], drawables);
 	start = scene.camera;
 	ray_table = init_tracer(scene);
 	stack = create_stack(MAX_RECURSION_DEPTH + 69, 1);

@@ -81,7 +81,8 @@ t_vect  get_cyl_normal_vector(t_vect inter, t_figure cyl, t_point start)
     bottom = cyl;
     top = cyl;
     top.center = add(cyl.center, scale(cyl.normal, cyl.length));
-    top.normal = scale(cyl.normal, -1);
+    bottom.normal = scale(cyl.normal, 1);
+	top.normal = scale(cyl.normal, 1);
 	cyl.get_normal_at = get_hcyl_normal_vector;
 	top.get_normal_at = get_circle_normal_vector;
 	bottom.get_normal_at = get_circle_normal_vector;
@@ -106,8 +107,6 @@ int		cyl_eclipses_light(t_point inter, t_cyl cyl, t_point spot)
 		return (0);
 	inter_to_spot = substract(spot, inter);
 	cyl_inter = cyl_intersection(cyl, normalize(inter_to_spot), inter);
-	//if (norm(cyl_inter) >= RENDER_DISTANCE - 1)
-	//	return(0);
 	inter_to_cyl = substract(cyl_inter, inter);
 	if (norm(inter_to_spot) < norm(inter_to_cyl))
 		return(0);

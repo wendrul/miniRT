@@ -88,15 +88,14 @@ int			get_plane_side(t_point point, t_plane plane)
 
 t_vect      get_plane_normal_vector(t_vect inter, t_figure plane, t_point start)
 {
-	(void)inter;
 	if (dot(substract(inter,start), plane.normal) < 0)
     	return (plane.normal);
 	else
 		return(scale(plane.normal, -1));
 }
 
-int			plane_eclipses_light(t_point intersection, t_plane plane, t_point light)
+int			plane_eclipses_light(t_point inter, t_plane plane, t_point light)
 {
-	return (get_plane_side(intersection, plane) != get_plane_side(light, plane));
+	return (figure_eclipses_light(inter, plane, light));
 }
 
