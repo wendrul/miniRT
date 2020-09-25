@@ -17,6 +17,14 @@ float	norm(t_point vector)
 	return (sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2)));
 }
 
+float norm_inf(t_vect a)
+{
+    float n;
+
+    n = ft_max(fabs(a.x), fabs(a.y));
+    return (ft_max(n, fabs(a.z)));
+}
+
 float	normsqrd(t_point vector)
 {
 	return (pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
