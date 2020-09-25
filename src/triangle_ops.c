@@ -31,7 +31,7 @@ t_triangle	create_triangle(t_parse_args parsed)
 	char *msg;
 	msg = check_triangle_args(parsed);
 	if (msg != NULL)
-		clean_exit(0, msg);
+		clean_exit(1, msg);
 
 	triangle.center = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
     triangle.normal = new_vect(parsed.args[3], parsed.args[4], parsed.args[5]);

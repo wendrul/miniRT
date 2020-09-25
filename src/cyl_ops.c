@@ -39,7 +39,7 @@ t_cyl	create_cyl(t_parse_args parsed)
 
 	msg = check_cyl_args(parsed);
 	if (msg != NULL)
-		clean_exit(0, msg);
+		clean_exit(1, msg);
 	cyl = (t_cyl)create_hcyl(parsed);
 	cyl.intersection = cyl_intersection;
 	cyl.eclipses = cyl_eclipses_light;

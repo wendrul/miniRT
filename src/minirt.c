@@ -63,7 +63,8 @@ int		main(int argc, char **argv)
 					{
 						SDL_DestroyWindow(g_sdl_win.window);
 						SDL_Quit();
-						return 0;
+						clean_exit(0, NULL);
+						return (0);
 					}
 				}
 			}

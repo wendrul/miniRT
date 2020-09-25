@@ -33,7 +33,7 @@ t_sphere	create_sphere(t_parse_args parsed)
 	char *msg;
 	msg = check_sphere_args(parsed);
 	if (msg != NULL)
-		clean_exit(0, msg);
+		clean_exit(1, msg);
 
 	sphere.x = parsed.args[0];
 	sphere.y = parsed.args[1];
