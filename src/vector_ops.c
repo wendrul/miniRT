@@ -126,6 +126,36 @@ t_vect projection(t_vect u, t_vect base)
 	return(scale(base, t));
 }
 
+t_vect cross(t_vect a, t_vect b)
+{
+	t_vect ret;
+
+	ret.x = a.y * b.z - a.z * a.y;
+	ret.y = a.z * b.x - a.x * b.z;
+	ret.z = a.x * b.y - a.y * b.x;
+	return (ret);
+}
+
+t_vect	apply_rotation(t_vect u, t_vect ref, t_vect model)
+{
+	t_vect rot;
+	t_vect ret;
+
+	rot = cross(ref, model);
+	rot = scale(normalize(rot), dot(ref, model));
+	ret.x = ret.x   * (cos(rot.z) * cos(rot.y)) 
+	+ ret.y * (cos(rot.z) * sin(rot.y) * sin(rot.x) - sin(rot.z) * cos(rot.x)) 
+	+ ret.z * (cos(rot.z) * sin(rot.y) * cos(rot.x) + sin(rot.z) * sin(rot.x));
+	ret.y = ret.x   * (sin(rot.z) * cos(rot.y))
+	+ ret.y * (sin(rot.z) * sin(rot.y) * sin(rot.x) + cos(rot.z) * cos(rot.x))
+	+ ret.z * (sin(rot.z) * sin(rot.y) * cos(rot.x) - cos(rot.z) * cos(rot.x));
+	ret.z = ret.x   * (-sin(rot.z)) 
+	+ ret.y * (cos(rot.y) * sin(rot.x)) 
+	+ ret.z * (cos(rot.y) * cos(rot.x));
+}
+
+t_vect 
+
 void print_vect(t_vect vect, char *str)
 {
 	printf("%s - x:%f, y:%f, z:%f\n", str, vect.x, vect.y, vect.z);
