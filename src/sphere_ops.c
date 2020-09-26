@@ -106,7 +106,7 @@ int		sphere_eclipses_light(t_point intersection, t_sphere sphere, t_point spot)
 {
 	t_vect	intersection_to_spot;
 
-	if (sphere.is_reflective < EPSILON)
+	if (sphere.is_reflective > EPSILON)
 		return (0);
 	intersection_to_spot = normalize(vector(intersection, spot));
 	intersection_to_spot = scale(intersection_to_spot, distance(intersection, sphere.center));
