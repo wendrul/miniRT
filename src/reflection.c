@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 21:54:26 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/25 11:25:41 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:38:19 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int figure_eclipses_light(t_vect inter, t_figure shape, t_vect light)
 	t_vect	inter_to_shape;
 	t_vect	shape_inter;
 
-	if (shape.is_reflective)
+	if (shape.is_reflective < EPSILON)
 		return (0);
 	inter_to_light = substract(light, inter);
 	shape_inter = shape.intersection(shape, normalize(inter_to_light), inter);

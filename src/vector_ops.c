@@ -130,29 +130,32 @@ t_vect cross(t_vect a, t_vect b)
 {
 	t_vect ret;
 
-	ret.x = a.y * b.z - a.z * a.y;
+	ret.x = a.y * b.z - a.z * b.y;
 	ret.y = a.z * b.x - a.x * b.z;
 	ret.z = a.x * b.y - a.y * b.x;
 	return (ret);
 }
 
-t_vect	apply_rotation(t_vect u, t_vect ref, t_vect model)
+t_vect	apply_rotation(t_vect u, t_vect rot, float theta)
 {
-	t_vect rot;
 	t_vect ret;
 
-	rot = cross(ref, model);
-	rot = scale(normalize(rot), dot(ref, model));
-	ret.x = u.x   * (cos(rot.z) * cos(rot.y)) 
-	+ u.y * (cos(rot.z) * sin(rot.y) * sin(rot.x) - sin(rot.z) * cos(rot.x)) 
-	+ u.z * (cos(rot.z) * sin(rot.y) * cos(rot.x) + sin(rot.z) * sin(rot.x));
-	ret.y = u.x   * (sin(rot.z) * cos(rot.y))
-	+ u.y * (sin(rot.z) * sin(rot.y) * sin(rot.x) + cos(rot.z) * cos(rot.x))
-	+ u.z * (sin(rot.z) * sin(rot.y) * cos(rot.x) - cos(rot.z) * cos(rot.x));
-	ret.z = u.x   * (-sin(rot.z)) 
-	+ u.y * (cos(rot.y) * sin(rot.x)) 
-	+ u.z * (cos(rot.y) * cos(rot.x));
+
+	if (norm(rot) < 0.001)
+		return (u);
+	rot = normalize(rot);
+	
+	ret.x = u.x * (cos(theta) + pow(rot.x, 2) * (1 - cos(theta)))
+		  + u.y * (rot.x * rot.y * (1 - cos(theta)) - rot.z * sin(theta))
+		  + u.z * (rot.x * rot.z * (1 - cos(theta)) + rot.y * sin(theta));
+	ret.y = u.x * (rot.y * rot.x * (1 - cos(theta)) + rot.z * sin(theta))
+		  + u.y * (cos(theta) + pow(rot.y, 2) * (1 - cos(theta)))
+		  + u.z * (rot.y * rot.z * (1 - cos(theta)) - rot.x * sin(theta));
+	ret.z = u.x * (rot.z * rot.x * (1 - cos(theta)) - rot.y * sin(theta))
+		  + u.y * (rot.z * rot.y * (1 - cos(theta)) + rot.x * sin(theta))
+		  + u.z * (cos(theta) + pow(rot.z, 2) * (1 - cos(theta)));
 	return (ret);
+
 }
 
 void print_vect(t_vect vect, char *str)

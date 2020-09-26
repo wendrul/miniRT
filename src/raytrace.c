@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_vect **turn_ray_table(t_vect **ray_table, t_scene scene, t_vect cur_orientation)
+t_vect **turn_ray_table(t_vect **ray_table, t_scene scene, t_vect ref, float theta)
 {
 	int		i;
 	int		j;
@@ -23,7 +23,7 @@ t_vect **turn_ray_table(t_vect **ray_table, t_scene scene, t_vect cur_orientatio
 		j = -1;
 		while (++j < scene.resolution.x)
 		{
-			ray_table[i][j] = apply_rotation(ray_table[i][j], cur_orientation, scene.cam_rotation);
+			ray_table[i][j] = apply_rotation(ray_table[i][j], ref, theta);
 		}
 	}
 	return (ray_table);
@@ -35,21 +35,24 @@ t_vect	**init_tracer(t_scene scene)
 	t_point	start;
 	t_point end;
 	t_vect	step;
+	t_vect	def_rot;
 	int		i;
 	int		j;
 
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * scene.resolution.y)))
 		exit(0);
 	start = scene.cam_rotation;
-	start.x = -sin(scene.fov);
-	start.y = sin(scene.fov);	
+	start.x = -sin(scene.fov / 2);
+	start.y = sin(scene.fov / 2* (scene.resolution.y / scene.resolution.x));	
 	start.z = 1;
-	end.x = sin(scene.fov);
-	end.y = -sin(scene.fov);
+	end.x = sin(scene.fov / 2);
+	end.y = -sin(scene.fov / 2 * (scene.resolution.y / scene.resolution.x));
 	end.z = 1;
 	step.x = ((end.x - start.x) / (float)scene.resolution.x);
 	step.y = ((end.y - start.y) / (float)scene.resolution.y);
 	i = -1;
+	print_vect(scene.cam_rotation, "cam rot");
+	print_vect(cross(scene.cam_rotation, new_vect(0, 0, 1)), "cross");
 	while (++i < scene.resolution.y)
 	{
 		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * scene.resolution.x)))
@@ -63,7 +66,9 @@ t_vect	**init_tracer(t_scene scene)
 			ray_table[i][j] = normalize(ray_table[i][j]);
 		}
 	}
-	//ray_table = turn_ray_table(ray_table, scene, new_vect(0, 0, 1));
+	def_rot = new_vect(0, 0, 1);
+	float theta = acos(dot(def_rot, scene.cam_rotation) / (norm(def_rot) * norm(scene.cam_rotation))); 
+	ray_table = turn_ray_table(ray_table, scene, cross(def_rot, scene.cam_rotation), theta);
 	return (ray_table);
 }
 

@@ -209,7 +209,7 @@ t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident, t
 
 t_vect		new_vect(float x, float y, float z);
 t_vect		true_vect(t_vect v1, t_vect v2);
-t_vect		apply_rotation(t_vect u, t_vect ref, t_vect model);
+t_vect		apply_rotation(t_vect u, t_vect ref, float theta);
 t_vect		cross(t_vect a, t_vect b);
 
 t_color		new_color_vect(t_vect v);
