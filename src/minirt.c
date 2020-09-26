@@ -33,6 +33,7 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "hcy", create_hcyl);
 	add_drawable(&drawables, "ci", create_circle);
 	add_drawable(&drawables, "cy", create_cyl);
+	add_drawable(&drawables, "sq", create_square);
 	scene = parse_scene(argv[1], drawables);
 	start = scene.camera;
 	ray_table = init_tracer(scene);

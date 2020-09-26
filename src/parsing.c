@@ -88,7 +88,7 @@ int		is_valid_figure(char *raw_line, t_drawable *drawables)
 
     if (!(line = ft_split_charset(raw_line, "\f\t\n\r\v ")))
         clean_exit(1, "Malloc failed");
-    if (!line[0] || (ft_indexof(line[0][0], "#RAcl") != -1 && line[0][1] == '\0'))
+    if (!line[0] || line[0][0] == '#' || (ft_indexof(line[0][0], "RAcl") != -1 && line[0][1] == '\0'))
         return (tab_del_return(line, 0));
     while(drawables)
     {
