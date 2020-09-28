@@ -129,7 +129,7 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 			continue;
 		
 		intersection = scene.figure_list[i].intersection(scene.figure_list[i], ray, start);
-		if ((distance = norm(intersection)) < closest_distance)
+		if ((distance = norm(true_vect(start, intersection))) < closest_distance)
 		{
 			index = i;
 			closest_distance = distance;

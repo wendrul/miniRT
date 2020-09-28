@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/25 11:24:49 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/28 20:38:11 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,15 @@ t_point     triangle_intersection(t_triangle triangle, t_vect ray, t_point start
     q.x = r1 * ray.x + start.x;
     q.y = r1 * ray.y + start.y;
     q.z = r1 * ray.z + start.z;
-	if (dot(cross(substract(triangle.normal, triangle.center), substract(q, triangle.center)), n) < 0
-		|| dot(cross(substract(triangle.third, triangle.normal), substract(q, triangle.normal)), n) < 0
-		|| dot(cross(substract(triangle.center, triangle.third), substract(q, triangle.third)), n) < 0)
-		return (render);
-    return (q);
+	if (dot(cross(substract(triangle.normal, triangle.center), substract(q, triangle.center)), n) >= 0
+		&& dot(cross(substract(triangle.third, triangle.normal), substract(q, triangle.normal)), n) >= 0
+		&& dot(cross(substract(triangle.center, triangle.third), substract(q, triangle.third)), n) >= 0)
+		return (q);
+	if (dot(cross(substract(triangle.normal, triangle.center), substract(q, triangle.center)), n) <= 0
+		&& dot(cross(substract(triangle.third, triangle.normal), substract(q, triangle.normal)), n) <= 0
+		&& dot(cross(substract(triangle.center, triangle.third), substract(q, triangle.third)), n) <= 0)
+		return (q);
+    return (render);
 }
 
 
