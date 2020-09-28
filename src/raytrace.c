@@ -150,7 +150,7 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 		{
 			if (i == index)
 				continue;
-			if (scene.figure_list[i].eclipses(closest_intersection, scene.figure_list[i], scene.spotlight))
+			if (figure_eclipses_light(closest_intersection, scene.figure_list[i], scene.spotlight))
 			{
 				lum_intensity = AMBIENCE_LIGHTING;
 				break;
