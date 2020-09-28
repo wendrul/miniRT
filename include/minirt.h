@@ -13,6 +13,7 @@
 # define EPSILON 0.0001
 # define WIN_WIDTH 700
 # define RENDER_DISTANCE 100000000
+# define MIN_RENDER_DIST 0.001
 # define AMBIENCE_LIGHTING 0.03
 # define SKY_COLOR 0x1a3766
 # define FOV_H M_PI / 2

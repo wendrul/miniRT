@@ -128,7 +128,7 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 			continue;
 		
 		intersection = scene.figure_list[i].intersection(scene.figure_list[i], ray, start);
-		if ((distance = norm(true_vect(start, intersection))) < closest_distance)
+		if ((distance = norm(true_vect(start, intersection))) < closest_distance && distance > MIN_RENDER_DIST)
 		{
 			index = i;
 			closest_distance = distance;
@@ -160,5 +160,5 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 		return (filter_color(color_shade(lum_intensity, scene.figure_list[index], reflective_color), scene.adj_light_color));
 	}
 	current_recursion_depth--;
-	return (scene.amb_light_color);
+	return (rgb_to_int(new_color(scene.amb_light_color.x, scene.amb_light_color.y, scene.amb_light_color.z)));
 }
