@@ -19,8 +19,8 @@ char*	check_triangle_args(t_parse_args parsed)
 	ft_memcpy(args, parsed.args, parsed.size * sizeof(float));
 	if (parsed.size < 12 )
 		return ("Not enough arguments for a triangle.");
-	if (args[8] > 255 || args[9] > 255 || args[10] > 255 ||
-		args[8] < 0   || args[9] < 0   || args[10] < 0)
+	if (args[9] > 255 || args[10] > 255 || args[11] > 255 ||
+		args[9] < 0   || args[10] < 0   || args[11] < 0)
 		return ("Invalid RGB color values for triangle (must be values between 0 and 255 per color).");
 	return (NULL);
 }
@@ -49,38 +49,45 @@ t_triangle	create_triangle(t_parse_args parsed)
 
 t_point     triangle_intersection(t_triangle triangle, t_vect ray, t_point start)
 {
-    t_vect        result;
-    t_vect      u;
+	t_vect		q;
     double      r1;
+	t_vect		render;
+	t_vect		n;
 
-    result.x = RENDER_DISTANCE;
-    result.y = RENDER_DISTANCE;
-    result.z = RENDER_DISTANCE;
-    if (dot(triangle.normal, ray) == 0)
-        return (result);
-    r1 = (dot(triangle.center, triangle.normal) - dot(triangle.normal, start)) / dot(triangle.normal, ray);
+	render.x = RENDER_DISTANCE;
+	render.y = RENDER_DISTANCE;
+	render.z = RENDER_DISTANCE;
+	n = get_triangle_normal_vector(triangle.center, triangle, start);
+	if (norm(n) < EPSILON)
+		return (render);
+	if (dot(n, ray) == 0)
+        return (render);
+    r1 = (dot(triangle.center, n) - dot(n, start)) / dot(n, ray);
     if (r1 <= 0)
-        return (result);
-    result.x = r1 * ray.x + start.x;
-    result.y = r1 * ray.y + start.y;
-    result.z = r1 * ray.z + start.z;
-    u = substract(result, triangle.center);
-    if (!(norm_inf(u) < triangle.length))
-    {
-      result.x = RENDER_DISTANCE;
-      result.y = RENDER_DISTANCE;
-      result.z = RENDER_DISTANCE;
-    }        
-    return (result);
+        return (render);
+    q.x = r1 * ray.x + start.x;
+    q.y = r1 * ray.y + start.y;
+    q.z = r1 * ray.z + start.z;
+	if (dot(cross(substract(triangle.normal, triangle.center), substract(q, triangle.center)), n) < 0
+		|| dot(cross(substract(triangle.third, triangle.normal), substract(q, triangle.normal)), n) < 0
+		|| dot(cross(substract(triangle.center, triangle.third), substract(q, triangle.third)), n) < 0)
+		return (render);
+    return (q);
 }
 
 
 t_vect      get_triangle_normal_vector(t_vect inter, t_figure triangle, t_point start)
 {
-	if (dot(substract(inter, start), triangle.normal) < 0)
-		return (triangle.normal);
+	t_vect product;
+
+	product = cross(true_vect(triangle.center, triangle.normal), true_vect(triangle.center, triangle.third));
+	if (norm(product) < EPSILON)
+		return (new_vect(0, 0, 0));
+	product = normalize(product);
+	if (dot(substract(inter, start), product) < 0)
+		return (product);
 	else
-		return(scale(triangle.normal, -1));
+		return(scale(product, -1));
 }
 
 int			triangle_eclipses_light(t_point inter, t_triangle triangle, t_point light)
