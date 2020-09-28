@@ -175,7 +175,7 @@ t_scene	check_camera(t_scene scene, t_parse_args parsed)
 	scene.camera = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
 	scene.cam_rotation = new_vect(parsed.args[3], parsed.args[4], parsed.args[5]);
 	if (norm(scene.cam_rotation) < EPSILON)
-		clean_exit(0, "Camera orientation cannot be zero vector");
+		clean_exit(1, "Camera orientation cannot be zero vector");
 	scene.cam_rotation = normalize(scene.cam_rotation);
 	scene.fov = args[6] * M_PI / 180;
 	return (scene);
