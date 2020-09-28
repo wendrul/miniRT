@@ -77,7 +77,6 @@ int		color_shade(float intensity, t_figure figure, int reflective_color)
 	t_color base;
 	t_color	reflective_rgb;
 	
-	intensity = intensity < AMBIENCE_LIGHTING ? AMBIENCE_LIGHTING : intensity;
 	base = color_intensity(figure.color, intensity);
 	reflective_rgb = int_to_rgb(0);
 	if (figure.is_reflective > 0)
@@ -145,6 +144,7 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 			reflective_color = trace_ray(reflected_dir, scene, modified_start, index, 0, stack);
 		}
 		lum_intensity = get_lum_intensity(scene.figure_list[index], closest_intersection, scene.spotlight, start);
+		lum_intensity = (1 - scene.amb_light_ratio) * lum_intensity + scene.amb_light_ratio;
 		i = -1;
 		while (++i < scene.figure_count)
 		{
@@ -152,7 +152,7 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 				continue;
 			if (figure_eclipses_light(closest_intersection, scene.figure_list[i], scene.spotlight))
 			{
-				lum_intensity = AMBIENCE_LIGHTING;
+				lum_intensity = scene.amb_light_ratio;
 				break;
 			}
 		}
@@ -160,5 +160,5 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 		return (filter_color(color_shade(lum_intensity, scene.figure_list[index], reflective_color), scene.adj_light_color));
 	}
 	current_recursion_depth--;
-	return (SKY_COLOR);
+	return (scene.amb_light_color);
 }
