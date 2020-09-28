@@ -66,7 +66,7 @@ t_point		plane_intersection(t_plane plane, t_vect ray, t_point start)
 	if (dot(plane.normal, ray) == 0)
         return (result);
     r1 = (dot(plane.center, plane.normal) - dot(plane.normal, start)) / dot(plane.normal, ray);
-    if (r1 <= 0)
+    if (r1 < 0)
         return (result);
     result.x = r1 * ray.x + start.x;
     result.y = r1 * ray.y + start.y;
