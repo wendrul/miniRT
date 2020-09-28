@@ -170,11 +170,14 @@ t_scene	check_camera(t_scene scene, t_parse_args parsed)
 	if (args[3] > 1  || args[4] > 1  || args[5] > 1 ||
 		args[3] < -1 || args[4] < -1 || args[5] < -1)
 		clean_exit(1, "Camera orientation vector values not in range [-1, 1].");
-	if (args[7] > 180 || args[7] < 0)
+	if (args[6] > 180 || args[6] < 0)
 		clean_exit(1, "FOV is not in range [0, 180].");
 	scene.camera = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
-	scene.camera = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
-	scene.fov = args[7];
+	scene.cam_rotation = new_vect(parsed.args[3], parsed.args[4], parsed.args[5]);
+	if (norm(scene.cam_rotation) < EPSILON)
+		clean_exit(0, "Camera orientation cannot be zero vector");
+	scene.cam_rotation = normalize(scene.cam_rotation);
+	scene.fov = args[6] * M_PI / 180;
 	return (scene);
 }
 

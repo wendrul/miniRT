@@ -9,9 +9,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define WIN_HEIGHT 1000
+# define WIN_HEIGHT 700
 # define EPSILON 0.0001
-# define WIN_WIDTH 1000
+# define WIN_WIDTH 700
 # define RENDER_DISTANCE 100000000
 # define AMBIENCE_LIGHTING 0.03
 # define SKY_COLOR 0x1a3766
@@ -165,7 +165,7 @@ typedef struct	s_drawable
 	t_sdl_win g_sdl_win;
 # endif
 
-void		init_win(void);
+void		init_win(t_scene scene);
 void 		print_vect(t_vect vect, char *str); // dont kep lpplz
 
 
@@ -221,6 +221,8 @@ t_vect		get_reflective_vector(t_sphere sphere, t_point inter, t_vect incident, t
 
 t_vect		new_vect(float x, float y, float z);
 t_vect		true_vect(t_vect v1, t_vect v2);
+t_vect		apply_rotation(t_vect u, t_vect ref, float theta);
+t_vect		cross(t_vect a, t_vect b);
 
 t_color		new_color_vect(t_vect v);
 int			filter_color(int color, int filter);

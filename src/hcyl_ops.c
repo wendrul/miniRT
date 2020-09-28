@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/09/25 10:32:35 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/09/26 17:55:50 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int		hcyl_eclipses_light(t_point inter, t_hcyl hcyl, t_point spot)
 	t_vect	inter_to_cyl;
 	t_vect	cyl_inter;
 
-	if (hcyl.is_reflective)
+	if (hcyl.is_reflective > EPSILON)
 		return (0);
 	inter_to_spot = substract(spot, inter);
 	cyl_inter = hcyl_intersection(hcyl, normalize(inter_to_spot), inter);

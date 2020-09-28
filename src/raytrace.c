@@ -12,34 +12,53 @@
 
 #include "minirt.h"
 
+t_vect **turn_ray_table(t_vect **ray_table, t_scene scene, t_vect ref, float theta)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < scene.resolution.y)
+	{
+		j = -1;
+		while (++j < scene.resolution.x)
+		{
+			ray_table[i][j] = apply_rotation(ray_table[i][j], ref, theta);
+		}
+	}
+	return (ray_table);
+}
+
 t_vect	**init_tracer(t_scene scene)
 {
 	t_vect	**ray_table;
 	t_point	start;
 	t_point end;
 	t_vect	step;
+	t_vect	def_rot;
 	int		i;
 	int		j;
 
-	(void)scene;
-
-	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * WIN_HEIGHT)))
+	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * scene.resolution.y)))
 		exit(0);
-	start.x = -sin(FOV_W);
-	start.y = sin(FOV_H);	
+	start = scene.cam_rotation;
+	start.x = -sin(scene.fov / 2);
+	start.y = sin(scene.fov / 2* (scene.resolution.y / scene.resolution.x));	
 	start.z = 1;
-	end.x = sin(FOV_W);
-	end.y = -sin(FOV_H);
+	end.x = sin(scene.fov / 2);
+	end.y = -sin(scene.fov / 2 * (scene.resolution.y / scene.resolution.x));
 	end.z = 1;
-	step.x = ((end.x - start.x) / (float)WIN_WIDTH);
-	step.y = ((end.y - start.y) / (float)WIN_HEIGHT);
+	step.x = ((end.x - start.x) / (float)scene.resolution.x);
+	step.y = ((end.y - start.y) / (float)scene.resolution.y);
 	i = -1;
-	while (++i < WIN_HEIGHT)
+	print_vect(scene.cam_rotation, "cam rot");
+	print_vect(cross(scene.cam_rotation, new_vect(0, 0, 1)), "cross");
+	while (++i < scene.resolution.y)
 	{
-		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * WIN_WIDTH)))
+		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * scene.resolution.x)))
 			exit(0);
 		j = -1;
-		while (++j < WIN_WIDTH)
+		while (++j < scene.resolution.x)
 		{
 			ray_table[i][j].x = start.x + step.x * (float)j;
 			ray_table[i][j].y = start.y + step.y * (float)i; //daniel doubts, Etienne owns
@@ -47,6 +66,9 @@ t_vect	**init_tracer(t_scene scene)
 			ray_table[i][j] = normalize(ray_table[i][j]);
 		}
 	}
+	def_rot = new_vect(0, 0, 1);
+	float theta = acos(dot(def_rot, scene.cam_rotation) / (norm(def_rot) * norm(scene.cam_rotation))); 
+	ray_table = turn_ray_table(ray_table, scene, cross(def_rot, scene.cam_rotation), theta);
 	return (ray_table);
 }
 
