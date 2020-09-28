@@ -34,6 +34,7 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "ci", create_circle);
 	add_drawable(&drawables, "cy", create_cyl);
 	add_drawable(&drawables, "sq", create_square);
+	add_drawable(&drawables, "tr", create_triangle);
 	scene = parse_scene(argv[1], drawables);
 	start = scene.camera;
 	ray_table = init_tracer(scene);
@@ -62,7 +63,8 @@ int		main(int argc, char **argv)
 					{
 						SDL_DestroyWindow(g_sdl_win.window);
 						SDL_Quit();
-						return 0;
+						clean_exit(0, NULL);
+						return (0);
 					}
 				}
 			}

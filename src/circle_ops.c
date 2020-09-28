@@ -36,7 +36,7 @@ t_circle	create_circle(t_parse_args parsed)
 	char *msg;
 	msg = check_circle_args(parsed);
 	if (msg != NULL)
-		clean_exit(0, msg);
+		clean_exit(1, msg);
 
 	circle.x = parsed.args[0];
 	circle.y = parsed.args[1];

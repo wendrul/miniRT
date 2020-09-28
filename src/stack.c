@@ -6,7 +6,7 @@ t_r_stack     create_stack(int size, float first_refractive)
 
 	stack.capacity = size;
 	if (!(stack.array = (t_refractive_medium*)malloc(sizeof(t_refractive_medium) * (size + 1))))
-		clean_exit(1, "Failed to initialize refraction stack (malloc)");
+		clean_exit(1, "Failed to initialize refraction stack (malloc failed)");
 	stack.array[0].refractive_index = first_refractive;
 	stack.array[0].index = -1;
 	stack.top = 0;

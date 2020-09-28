@@ -34,7 +34,7 @@ t_plane	create_plane(t_parse_args parsed)
 	char *msg;
 	msg = check_plane_args(parsed);
 	if (msg != NULL)
-		clean_exit(0, msg);
+		clean_exit(1, msg);
 
 	plane.x = parsed.args[0];
 	plane.y = parsed.args[1];

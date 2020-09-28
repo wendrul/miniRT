@@ -38,7 +38,7 @@ t_hcyl	create_hcyl(t_parse_args parsed)
 	char *msg;
 	msg = check_hcyl_args(parsed);
 	if (msg != NULL)
-		clean_exit(0, msg);
+		clean_exit(1, msg);
 	hcyl.x = parsed.args[0];
 	hcyl.y = parsed.args[1];
 	hcyl.z = parsed.args[2];
