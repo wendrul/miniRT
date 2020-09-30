@@ -55,7 +55,7 @@ LFT_RULE	=	$(LFT_PATH)/$(LFT_NAME)
 OBJS		=	$(patsubst src/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 SDL_OBJS	=	$(patsubst src/%.c, $(SDL_OBJ_DIR)/%.o, $(SRCS))
 LIB			=	$(LFT_LIB) -lm
-LIB_MLX		= 	-lmlx -framework OpenGL -framework AppKit
+LIB_MLX		= 	-lmlx -lX11 -lXext #-framework OpenGL -framework AppKit --shared
 LIB_SDL		=	-lSDL2
 INC			=	-I $(INC_DIR) $(LFT_INC)
 
@@ -82,7 +82,7 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(INC_DIR)/
 
 $(SDL_OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(INC_DIR)/
 				@$(MKDIR_P) $(SDL_OBJ_DIR)
-				@$(CC) -DUSING_SDL $(CFLAGS) -c -o $@ $< $(INC)
+				@$(CC) $(CFLAGS) -c -o $@ $< $(INC)
 				@printf "$(CYAN)Compiling $(MAGENTA)$<$(RESET)\r"
 
 $(NAME):		$(LFT_RULE) $(OBJS)
@@ -92,7 +92,7 @@ $(NAME):		$(LFT_RULE) $(OBJS)
 
 sdl:			$(LFT_RULE) $(SDL_OBJS)
 				@printf "$(CYAN)Done creating $(NAME) object files!\n$(RESET)"
-				@$(CC) $(CFLAGS) -DUSING_SDL $(SDL_OBJS) -o sdl_miniRT $(INC) $(LIB) $(LIB_SDL) 
+				@$(CC) $(CFLAGS) $(SDL_OBJS) -o sdl_miniRT $(INC) $(LIB) $(LIB_SDL) 
 				@echo "$(CYAN)Created $(GREEN)$(NAME)$(CYAN)!! $(RESET)"
 
 
