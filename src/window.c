@@ -79,7 +79,7 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 		thing = 0;
 		ft_putnbr_fd(keycode, 1);
 		ft_putchar_fd('\n', 1);
-		if (keycode == 53)
+		if (keycode == 53 || keycode == 65307)
 			exit(0);
 		return (0);
 	}
@@ -87,8 +87,8 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 	void	mlx_init_win(t_scene scene)
 	{
 		g_win.mlx = mlx_init();
-		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.y, WIN_WIDTH, "miniRT");
-		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.x, WIN_WIDTH);
+		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.y, scene.resolution.x, "miniRT");
+		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.y, scene.resolution.x);
 		g_win.buffer = (int*)mlx_get_data_addr(g_win.img, &g_win.bpp, &g_win.s_l, &g_win.endian);
 	}
 
@@ -110,6 +110,7 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 				g_win.buffer[j + i * (int)scene.resolution.y] = gamma_corrected(color, one_over_gamma);
 			}
 		}
+		
 		mlx_put_image_to_window(g_win.mlx, g_win.win, g_win.img, 0, 0);
 	}
 #endif
