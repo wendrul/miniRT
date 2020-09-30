@@ -242,4 +242,7 @@ void		add_drawable(t_drawable **drawables, char *name, t_figure (*create_func)(t
 int			trace_ray(t_vect ray, t_scene scene, t_point start, int	prev_index, int ignore, t_r_stack stack);
 double		angle(t_vect v1, t_vect v2);
 
+void		mlx_init_win(t_scene scene);
+void		mlx_render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack stack);
+
 #endif

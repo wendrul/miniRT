@@ -101,13 +101,13 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 
 		one_over_gamma = 1 / SCREEN_GAMMA;
 		i = -1;
-		while (++i < scene.resolution.y)
+		while (++i < (int)scene.resolution.y)
 		{
 			j = -1;
-			while (++j < scene.resolution.x)
+			while (++j < (int)scene.resolution.x)
 			{
 				color = trace_ray(ray_table[i][j], scene, start, -1, 0, stack);
-				g_win.buffer[j + i * scene.resolution.y] = gamma_corrected(color, one_over_gamma);
+				g_win.buffer[j + i * (int)scene.resolution.y] = gamma_corrected(color, one_over_gamma);
 			}
 		}
 		mlx_put_image_to_window(g_win.mlx, g_win.win, g_win.img, 0, 0);
