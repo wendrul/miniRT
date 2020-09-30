@@ -165,6 +165,7 @@ typedef struct	s_drawable
 
 void		init_win(t_scene scene);
 void 		print_vect(t_vect vect, char *str); // dont kep lpplz
+int			interact(int keycode, void *thing)
 
 
 t_sphere	create_sphere(t_parse_args parsed);
