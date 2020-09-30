@@ -23,9 +23,6 @@
 # define ZERO_FLOAT_PRECISION 0.0001
 # define MAX_PARSE_FIGURE_ARGUMENTS 20
 # define MAX_FIGURE_NAME_LENGTH 10
-# ifndef USING_SDL
-#  define USING_SDL
-# endif
 
 
 typedef struct	s_point
