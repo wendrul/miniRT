@@ -55,7 +55,7 @@ LFT_RULE	=	$(LFT_PATH)/$(LFT_NAME)
 OBJS		=	$(patsubst src/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 SDL_OBJS	=	$(patsubst src/%.c, $(SDL_OBJ_DIR)/%.o, $(SRCS))
 LIB			=	$(LFT_LIB) -lm
-LIB_MLX		= 	-lmlx -lX11 -lXext #-framework OpenGL -framework AppKit --shared
+LIB_MLX		= 	-L. -lmlx -lX11 -lXext #-framework OpenGL -framework AppKit --shared
 LIB_SDL		=	-lSDL2
 INC			=	-I $(INC_DIR) $(LFT_INC)
 
