@@ -58,7 +58,7 @@ t_point		sphere_intersection(t_sphere sphere, t_vect ray, t_point start)
 	t_vect		subbed;
 	float		t;
 
-	subbed = substract(sphere.center, start);
+	subbed = subtract(sphere.center, start);
 	equa.a = 1;
 	equa.b = 2 * dot(ray, subbed);
 	equa.c = subbed.x * subbed.x + subbed.y * subbed.y 
@@ -96,7 +96,7 @@ t_vect  get_sphere_normal_vector(t_vect inter, t_figure sphere, t_point start)
     t_vect normal;
 	(void)start;
     normal = scale(true_vect(sphere.center, inter), 1.0 / sphere.radius);
-	if (dot(substract(inter,start), normal) < 0)
+	if (dot(subtract(inter,start), normal) < 0)
 		return (normal);
 	else
 		return (scale(normal, -1));

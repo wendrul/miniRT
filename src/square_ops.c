@@ -75,7 +75,7 @@ t_point     square_intersection(t_square square, t_vect ray, t_point start)
     result.x = r1 * ray.x + start.x;
     result.y = r1 * ray.y + start.y;
     result.z = r1 * ray.z + start.z;
-    u = substract(result, square.center);
+    u = subtract(result, square.center);
     if (!(norm_inf(u) < square.length))
     {
       result.x = RENDER_DISTANCE;
@@ -88,7 +88,7 @@ t_point     square_intersection(t_square square, t_vect ray, t_point start)
 
 t_vect      get_square_normal_vector(t_vect inter, t_figure square, t_point start)
 {
-	if (dot(substract(inter, start), square.normal) < 0)
+	if (dot(subtract(inter, start), square.normal) < 0)
 		return (square.normal);
 	else
 		return(scale(square.normal, -1));

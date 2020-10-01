@@ -88,7 +88,7 @@ int			get_plane_side(t_point point, t_plane plane)
 
 t_vect      get_plane_normal_vector(t_vect inter, t_figure plane, t_point start)
 {
-	if (dot(substract(inter,start), plane.normal) < 0)
+	if (dot(subtract(inter,start), plane.normal) < 0)
     	return (plane.normal);
 	else
 		return(scale(plane.normal, -1));

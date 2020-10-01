@@ -70,7 +70,7 @@ t_vect	true_vect(t_point v1, t_point v2)
 	return (result);
 }
 
-t_vect	substract(t_vect v1, t_vect v2)
+t_vect	subtract(t_vect v1, t_vect v2)
 {
 	t_vect result;
 

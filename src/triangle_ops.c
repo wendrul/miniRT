@@ -68,13 +68,13 @@ t_point     triangle_intersection(t_triangle triangle, t_vect ray, t_point start
     q.x = r1 * ray.x + start.x;
     q.y = r1 * ray.y + start.y;
     q.z = r1 * ray.z + start.z;
-	if (dot(cross(substract(triangle.normal, triangle.center), substract(q, triangle.center)), n) >= 0
-		&& dot(cross(substract(triangle.third, triangle.normal), substract(q, triangle.normal)), n) >= 0
-		&& dot(cross(substract(triangle.center, triangle.third), substract(q, triangle.third)), n) >= 0)
+	if (dot(cross(subtract(triangle.normal, triangle.center), subtract(q, triangle.center)), n) >= 0
+		&& dot(cross(subtract(triangle.third, triangle.normal), subtract(q, triangle.normal)), n) >= 0
+		&& dot(cross(subtract(triangle.center, triangle.third), subtract(q, triangle.third)), n) >= 0)
 		return (q);
-	if (dot(cross(substract(triangle.normal, triangle.center), substract(q, triangle.center)), n) <= 0
-		&& dot(cross(substract(triangle.third, triangle.normal), substract(q, triangle.normal)), n) <= 0
-		&& dot(cross(substract(triangle.center, triangle.third), substract(q, triangle.third)), n) <= 0)
+	if (dot(cross(subtract(triangle.normal, triangle.center), subtract(q, triangle.center)), n) <= 0
+		&& dot(cross(subtract(triangle.third, triangle.normal), subtract(q, triangle.normal)), n) <= 0
+		&& dot(cross(subtract(triangle.center, triangle.third), subtract(q, triangle.third)), n) <= 0)
 		return (q);
     return (render);
 }
@@ -88,7 +88,7 @@ t_vect      get_triangle_normal_vector(t_vect inter, t_figure triangle, t_point 
 	if (norm(product) < EPSILON)
 		return (new_vect(0, 0, 0));
 	product = normalize(product);
-	if (dot(substract(inter, start), product) < 0)
+	if (dot(subtract(inter, start), product) < 0)
 		return (product);
 	else
 		return(scale(product, -1));

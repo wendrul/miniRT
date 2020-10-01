@@ -68,10 +68,10 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 	t_vect		v2;
 	float		t;
 
-	v1 = substract(projection(start, hcyl.normal), start);
-	v2 = substract(hcyl.center, projection(hcyl.center, hcyl.normal));
+	v1 = subtract(projection(start, hcyl.normal), start);
+	v2 = subtract(hcyl.center, projection(hcyl.center, hcyl.normal));
 	v2 = add(v1, v2);
-	v1 = substract(ray, projection(ray, hcyl.normal));
+	v1 = subtract(ray, projection(ray, hcyl.normal));
 	equa.a = pow(v1.x, 2) + pow(v1.y, 2) + pow(v1.z, 2);
 	equa.b = 2 * (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 	equa.c = pow(v2.x, 2) + pow(v2.y, 2) + pow(v2.z, 2) - pow(hcyl.radius, 2);
@@ -84,7 +84,7 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 			result.x = start.x + t * ray.x;
 			result.y = start.y + t * ray.y;
 			result.z = start.z + t * ray.z;
-			t = dot(substract(result, hcyl.center), hcyl.normal);
+			t = dot(subtract(result, hcyl.center), hcyl.normal);
 			if (t < hcyl.length && t > 0)
 				return (result);
 		}
@@ -94,7 +94,7 @@ t_point		hcyl_intersection(t_hcyl hcyl, t_vect ray, t_point start)
 			result.x = start.x + t * ray.x;
 			result.y = start.y + t * ray.y;
 			result.z = start.z + t * ray.z;
-			t = dot(substract(result, hcyl.center), hcyl.normal);
+			t = dot(subtract(result, hcyl.center), hcyl.normal);
 			if (t < hcyl.length && t > 0)
 			return (result);
 		}
@@ -111,10 +111,10 @@ t_vect  get_hcyl_normal_vector(t_vect inter, t_figure hcyl, t_point start)
 	t_vect projected;
 	t_vect u;
 
-	u = substract(inter, hcyl.center);
+	u = subtract(inter, hcyl.center);
 	projected = projection(u, hcyl.normal);
-	normal = normalize(substract(u, projected));
-	if (dot(substract(inter,start), normal) < 0)
+	normal = normalize(subtract(u, projected));
+	if (dot(subtract(inter,start), normal) < 0)
 		return (normal);
 	else
 		return (scale(normal, -1));
@@ -128,9 +128,9 @@ int		hcyl_eclipses_light(t_point inter, t_hcyl hcyl, t_point spot)
 
 	if (hcyl.is_reflective > EPSILON)
 		return (0);
-	inter_to_spot = substract(spot, inter);
+	inter_to_spot = subtract(spot, inter);
 	cyl_inter = hcyl_intersection(hcyl, normalize(inter_to_spot), inter);
-	inter_to_cyl = substract(cyl_inter, inter);
+	inter_to_cyl = subtract(cyl_inter, inter);
 	if (norm(inter_to_spot) < norm(inter_to_cyl))
 		return(0);
 	return (1);

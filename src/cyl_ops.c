@@ -105,9 +105,9 @@ int		cyl_eclipses_light(t_point inter, t_cyl cyl, t_point spot)
 
 	if (cyl.is_reflective > EPSILON)
 		return (0);
-	inter_to_spot = substract(spot, inter);
+	inter_to_spot = subtract(spot, inter);
 	cyl_inter = cyl_intersection(cyl, normalize(inter_to_spot), inter);
-	inter_to_cyl = substract(cyl_inter, inter);
+	inter_to_cyl = subtract(cyl_inter, inter);
 	if (norm(inter_to_spot) < norm(inter_to_cyl))
 		return(0);
 	return (1);

@@ -206,7 +206,7 @@ float		normsqrd(t_point vector);
 t_point		normalize(t_point vector);
 t_vect		square(t_vect v1);
 t_point		vector(t_point v1, t_point v2);
-t_vect		substract(t_vect v1, t_vect v2);
+t_vect		subtract(t_vect v1, t_vect v2);
 t_vect		add(t_vect v1, t_vect v2);
 float		dot(t_point v1, t_point v2);
 float		distance(t_point p1, t_point p2);
