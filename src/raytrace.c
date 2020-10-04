@@ -137,10 +137,10 @@ int		trace_ray(t_vect ray, t_scene scene, t_point start, int prev_index, int ign
 	}
 	if (closest_distance < RENDER_DISTANCE)
 	{
-		if (scene.figure_list[index].is_reflective > 0 && index != peek_index(stack))
+		if (scene.figure_list[index].is_reflective > 0)
 		{
 			reflected_dir = get_reflective_vector(scene.figure_list[index], closest_intersection, ray, start);
-			modified_start = add(closest_intersection, scale(reflected_dir, EPSILON)); 
+			modified_start = add(closest_intersection, scale(reflected_dir, EPSILON));
 			reflective_color = trace_ray(reflected_dir, scene, modified_start, index, 0, stack);
 		}
 		lum_intensity = get_lum_intensity(scene.figure_list[index], closest_intersection, scene.spotlight, start);
