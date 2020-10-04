@@ -74,19 +74,42 @@ void	render_frame(t_vect **ray_table, t_scene scene, t_point start, t_r_stack st
 }
 
 #ifndef USING_SDL
-	int	interact(int keycode, void *thing)
+	void rerender(t_scene scene)
 	{
-		thing = 0;
+		t_camera c;
+
+		c = scene.camera_list[scene.active_camera];
+		render_frame(c.ray_table, scene, c.location, stack);
+	}
+
+	int	interact(int keycode, void *param)
+	{
+		t_scene *scene;
+
+		scene = (t_scene*)param;
 		ft_putnbr_fd(keycode, 1);
 		ft_putchar_fd('\n', 1);
-		if (keycode == 53 || keycode == 65307)
+		if (keycode == LEFT_ARROW && scene->camera_count != 1)
+		{
+			if (--scene->active_camera == -1)
+				scene->active_camera = scene->camera_count - 1;
+			rerender(*scene);
+		}
+		if (keycode == RIGHT_ARROW && scene->camera_count != 1)
+		{
+			if (++scene->active_camera == scene->camera_count)
+				scene->active_camera = 0;
+			rerender(*scene);
+		}
+		if (keycode == 53 || keycode == ESC)
 			exit(0);
 		return (0);
 	}
 
 	void	mlx_init_win(t_scene scene)
 	{
-		g_win.mlx = mlx_init();
+		if (!(g_win.mlx = mlx_init()))
+			clean_exit(1, "Failed to set up the connection to the graphical system.");
 		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.y, scene.resolution.x, "miniRT");
 		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.y, scene.resolution.x);
 		g_win.buffer = (int*)mlx_get_data_addr(g_win.img, &g_win.bpp, &g_win.s_l, &g_win.endian);

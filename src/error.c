@@ -19,7 +19,7 @@ void    clean_exit(int status, char *str)
         ft_putstr_fd("Error\n", 1);
     if  (str)
         ft_putstr_fd(str, 1);
-    ft_putstr_fd("Exiting program...\n", 1);
+    ft_putstr_fd("\nExiting program...\n", 1);
     ft_putchar_fd('\n', 1);
     exit(status);
 }

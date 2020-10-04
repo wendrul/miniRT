@@ -41,18 +41,17 @@ t_vect	**init_tracer(t_scene scene)
 
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * scene.resolution.y)))
 		exit(0);
-	start = scene.cam_rotation;
-	start.x = -sin(scene.fov / 2);
-	start.y = sin(scene.fov / 2* (scene.resolution.y / scene.resolution.x));	
+	i = scene.active_camera;
+	start = scene.camera_list[i].orientation;
+	start.x = -sin(scene.camera_list[i].fov / 2);
+	start.y = sin(scene.camera_list[i].fov / 2* (scene.resolution.y / scene.resolution.x));	
 	start.z = 1;
-	end.x = sin(scene.fov / 2);
-	end.y = -sin(scene.fov / 2 * (scene.resolution.y / scene.resolution.x));
+	end.x = sin(scene.camera_list[i].fov / 2);
+	end.y = -sin(scene.camera_list[i].fov / 2 * (scene.resolution.y / scene.resolution.x));
 	end.z = 1;
 	step.x = ((end.x - start.x) / (float)scene.resolution.x);
 	step.y = ((end.y - start.y) / (float)scene.resolution.y);
 	i = -1;
-	print_vect(scene.cam_rotation, "cam rot");
-	print_vect(cross(scene.cam_rotation, new_vect(0, 0, 1)), "cross");
 	while (++i < scene.resolution.y)
 	{
 		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * scene.resolution.x)))
@@ -67,8 +66,9 @@ t_vect	**init_tracer(t_scene scene)
 		}
 	}
 	def_rot = new_vect(0, 0, 1);
-	float theta = acos(dot(def_rot, scene.cam_rotation) / (norm(def_rot) * norm(scene.cam_rotation))); 
-	ray_table = turn_ray_table(ray_table, scene, cross(def_rot, scene.cam_rotation), theta);
+	i = scene.active_camera;
+	float theta = acos(dot(def_rot, scene.camera_list[i].orientation) / (norm(def_rot) * norm(scene.camera_list[i].orientation))); 
+	ray_table = turn_ray_table(ray_table, scene, cross(def_rot, scene.camera_list[i].orientation), theta);
 	return (ray_table);
 }
 

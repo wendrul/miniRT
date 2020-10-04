@@ -111,7 +111,6 @@ t_scene count_figures(char **lines, t_drawable *drawables)
 	scene.light_ratio = 1;
 	scene.amb_light_ratio = 0.6;
 	scene.amb_light_color = new_vect(255, 255, 255);
-    scene.camera = new_vect(0,0,0);
 	scene.figure_count = 0;
     scene.figure_list = NULL;
     while(*lines)
@@ -122,6 +121,44 @@ t_scene count_figures(char **lines, t_drawable *drawables)
     }
     return (scene);
 }
+
+void count_res_ambient(char **lines)
+{
+	int rcount;
+	int acount;
+
+	rcount = 0;
+	acount = 0;
+    while(*lines)
+    {
+        if ((*lines)[0] == 'R' && ft_indexof((*lines)[1], " \t") > -1)
+            rcount++;
+		if ((*lines)[0] == 'A' && ft_indexof((*lines)[1], " \t") > -1)
+            acount++;
+        lines++;
+    }
+	if (rcount != 1)
+		clean_exit(1, "There must be one R argument in the scene");
+	if (acount != 1)
+		clean_exit(1, "There must be one A argument in the scene");
+}
+
+int count_cameras(char **lines)
+{
+	int count;
+
+	count = 0;
+    while(*lines)
+    {
+        if ((*lines)[0] == 'c' && ft_indexof((*lines)[1], " \t") > -1)
+            count++;
+        lines++;
+    }
+	if (count == 0)
+		clean_exit(1, "No cameras found in the scene.");
+    return (count);
+}
+
 
 t_scene check_light(t_scene scene, t_parse_args parsed)
 {
@@ -161,6 +198,7 @@ t_scene check_amb_light(t_scene scene, t_parse_args parsed)
 
 t_scene	check_camera(t_scene scene, t_parse_args parsed)
 {
+	static int i = 0;
 	float args[MAX_PARSE_FIGURE_ARGUMENTS];
 
 	ft_memcpy(args, parsed.args, parsed.size * sizeof(float));
@@ -172,12 +210,14 @@ t_scene	check_camera(t_scene scene, t_parse_args parsed)
 		clean_exit(1, "Camera orientation vector values not in range [-1, 1].");
 	if (args[6] > 180 || args[6] < 0)
 		clean_exit(1, "FOV is not in range [0, 180].");
-	scene.camera = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
-	scene.cam_rotation = new_vect(parsed.args[3], parsed.args[4], parsed.args[5]);
-	if (norm(scene.cam_rotation) < EPSILON)
+	scene.camera_list[i].location = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
+	scene.camera_list[i].orientation = new_vect(parsed.args[3], parsed.args[4], parsed.args[5]);
+	scene.camera_list[i].fov = args[6];
+	if (norm(scene.camera_list[i].orientation) < EPSILON)
 		clean_exit(1, "Camera orientation cannot be zero vector");
-	scene.cam_rotation = normalize(scene.cam_rotation);
-	scene.fov = args[6] * M_PI / 180;
+	scene.camera_list[i].orientation = normalize(scene.camera_list[i].orientation);
+	scene.camera_list[i].fov = args[6] * M_PI / 180;
+	i++;
 	return (scene);
 }
 
@@ -216,6 +256,7 @@ static t_scene parse_switch(t_scene scene, t_parse_args parsed, t_drawable *draw
 				figure = drawables->create(parsed);
 				scene.figure_list[i] = figure;
 				i++;
+				break;
 			}
 			drawables = drawables->next;
 		}
@@ -266,6 +307,12 @@ static t_scene build_scene(t_scene scene, char **lines, t_drawable *drawables)
 {
 	if (!(scene.figure_list = 
 		(t_figure*)malloc(sizeof(t_figure) * scene.figure_count)))
+        clean_exit(1, "Failed to build scene, malloc failed");
+	scene.active_camera = 0;
+	scene.camera_count = count_cameras(lines);
+	count_res_ambient(lines);
+	if (!(scene.camera_list = 
+		(t_camera*)malloc(sizeof(t_camera) * scene.camera_count)))
         clean_exit(1, "Failed to build scene, malloc failed");
     while (*lines)
     {

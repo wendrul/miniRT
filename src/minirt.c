@@ -13,6 +13,15 @@
 #include "minirt.h"
 #include <time.h>
 
+void init_ray_tables(t_scene scene)
+{
+	while (scene.active_camera < scene.camera_count)
+	{
+		scene.camera_list[scene.active_camera].ray_table = init_tracer(scene);
+		scene.active_camera++;
+	}
+	scene.active_camera = 0;
+}
 
 int		main(int argc, char **argv)
 {
@@ -20,7 +29,6 @@ int		main(int argc, char **argv)
 	t_point		start;
 	t_scene		scene;
 	t_drawable	*drawables;
-	t_r_stack	stack;
 
 	if (argc != 2)
 	{
@@ -36,8 +44,9 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "sq", create_square);
 	add_drawable(&drawables, "tr", create_triangle);
 	scene = parse_scene(argv[1], drawables);
-	start = scene.camera;
-	ray_table = init_tracer(scene);
+	start = scene.camera_list[0].location;
+	init_ray_tables(scene);
+	ray_table = scene.camera_list[0].ray_table;
 	init_win(scene);
 	stack = create_stack(MAX_RECURSION_DEPTH + 69, 1);
 	clock_t begin = clock();
@@ -49,7 +58,7 @@ int		main(int argc, char **argv)
 	printf("Time Elapsed: %lf\n", time_spent);
 	
 	#ifndef USING_SDL
-		mlx_key_hook(g_win.win, interact, NULL);
+		mlx_key_hook(g_win.win, interact, (void*)&scene);
 		mlx_loop(g_win.mlx);
 	#endif
 	#ifdef USING_SDL

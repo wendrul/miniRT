@@ -23,6 +23,9 @@
 # define ZERO_FLOAT_PRECISION 0.0001
 # define MAX_PARSE_FIGURE_ARGUMENTS 20
 # define MAX_FIGURE_NAME_LENGTH 10
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
+# define ESC 65307
 
 
 typedef struct	s_point
@@ -95,6 +98,14 @@ typedef t_figure	t_circle;
 typedef t_figure	t_square;
 typedef t_figure	t_triangle;
 
+typedef struct	s_camera
+{
+	t_point		location;
+	t_vect		orientation;
+	float		fov;
+	t_vect		**ray_table;
+}				t_camera;
+
 typedef struct	s_polynome
 {
 	float		a;
@@ -113,9 +124,9 @@ typedef struct	s_scene
 	float		light_ratio;
 	t_vect		amb_light_color;
 	float		amb_light_ratio;
-	t_point		camera;
-	t_vect		cam_rotation;
-	float		fov;
+	t_camera	*camera_list;
+	int			camera_count;
+	int			active_camera;
 	t_figure	*figure_list;
 	int			figure_count;
 }	            t_scene;
@@ -148,6 +159,7 @@ typedef struct	s_drawable
 	}				t_window;
 
 	t_window	g_win;
+	t_r_stack	stack;
 # endif
 
 # ifdef USING_SDL
