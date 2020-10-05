@@ -35,12 +35,13 @@ t_vect	**init_tracer(t_scene scene)
 	t_point	start;
 	t_point end;
 	t_vect	step;
-	t_vect	def_rot;
+	t_vect	rot_axis;
+	float	theta;
 	int		i;
 	int		j;
 
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * scene.resolution.y)))
-		exit(0);
+		clean_exit(1, "Malloc failed");
 	i = scene.active_camera;
 	start = scene.camera_list[i].orientation;
 	start.x = -sin(scene.camera_list[i].fov / 2);
@@ -55,7 +56,7 @@ t_vect	**init_tracer(t_scene scene)
 	while (++i < scene.resolution.y)
 	{
 		if (!(ray_table[i] = (t_vect*)malloc(sizeof(t_vect) * scene.resolution.x)))
-			exit(0);
+			clean_exit(1, "Malloc Failed");
 		j = -1;
 		while (++j < scene.resolution.x)
 		{
@@ -65,10 +66,12 @@ t_vect	**init_tracer(t_scene scene)
 			ray_table[i][j] = normalize(ray_table[i][j]);
 		}
 	}
-	def_rot = new_vect(0, 0, 1);
 	i = scene.active_camera;
-	float theta = acos(dot(def_rot, scene.camera_list[i].orientation) / (norm(def_rot) * norm(scene.camera_list[i].orientation))); 
-	ray_table = turn_ray_table(ray_table, scene, cross(def_rot, scene.camera_list[i].orientation), theta);
+	theta = angle(new_vect(0,0,1), scene.camera_list[i].orientation);
+	rot_axis = cross(new_vect(0,0,1), scene.camera_list[i].orientation);
+	if (norm(rot_axis) < EPSILON)
+		rot_axis = new_vect(0,1,0);
+	ray_table = turn_ray_table(ray_table, scene, rot_axis, theta);
 	return (ray_table);
 }
 
