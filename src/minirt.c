@@ -40,12 +40,40 @@ void init_buffers(t_scene scene)
 	scene.active_camera = 0;
 }
 
+t_scene	parse_console_args(t_scene scene, int argc, char **argv)
+{
+	int i;
+	scene.animate = 0;
+	scene.frame_duration = FRAME_DURATION_UNIT * 3;
+	scene.save_to_file = 0;
+	
+	i = 0;
+	while (++i < argc)
+	{
+		if (name_cmp("--save", argv[i]) == 0)
+		{
+			ft_putstr_fd("Scene will be saved\n", 1);
+			scene.save_to_file = 1;
+		}
+		if (name_cmp("-a", argv[i]) == 0)
+		{
+			scene.animate = 1;
+			ft_putstr_fd("Scene will be animated\n", 1);
+			if (i + 1 < argc && ft_isdigit(argv[i + 1][0]))
+			{
+				scene.frame_duration = FRAME_DURATION_UNIT * ft_atoi(argv[i + 1]);
+			}
+		}
+	}
+	return (scene);
+}
+
 int		main(int argc, char **argv)
 {
 	t_scene		scene;
 	t_drawable	*drawables;
 
-	if (argc != 2)
+	if (argc < 2)
 	{
 		ft_putendl_fd("pls file", 1);
 		return (0);
@@ -59,6 +87,7 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "sq", create_square);
 	add_drawable(&drawables, "tr", create_triangle);
 	scene = parse_scene(argv[1], drawables);
+	scene = parse_console_args(scene, argc, argv);
 	init_ray_tables(scene);
 	init_win(scene);
 	init_buffers(scene);
@@ -70,8 +99,8 @@ int		main(int argc, char **argv)
 	clock_t end = clock();
 	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("Time Elapsed: %lf\n", time_spent);
-	
 	#ifndef USING_SDL
+		mlx_loop_hook(g_win.mlx, loop, (void*)&scene);
 		mlx_key_hook(g_win.win, interact, (void*)&scene);
 		mlx_loop(g_win.mlx);
 	#endif

@@ -81,20 +81,52 @@ void	render_frame(t_scene scene)
 		scene = (t_scene*)param;
 		ft_putnbr_fd(keycode, 1);
 		ft_putchar_fd('\n', 1);
-		if (keycode == LEFT_ARROW && scene->camera_count != 1)
+		if (!scene->animate)
 		{
-			if (--scene->active_camera == -1)
-				scene->active_camera = scene->camera_count - 1;
-			render_frame(*scene);
+			if (keycode == LEFT_ARROW && scene->camera_count != 1)
+			{
+				if (--scene->active_camera == -1)
+					scene->active_camera = scene->camera_count - 1;
+				render_frame(*scene);
+			}
+			if (keycode == RIGHT_ARROW && scene->camera_count != 1)
+			{
+				if (++scene->active_camera == scene->camera_count)
+					scene->active_camera = 0;
+				render_frame(*scene);
+			}
 		}
-		if (keycode == RIGHT_ARROW && scene->camera_count != 1)
+		else
 		{
+			if (keycode == LEFT_ARROW)
+			{
+				scene->frame_duration += FRAME_DURATION_UNIT;
+			}
+			if (keycode == RIGHT_ARROW && scene->frame_duration > FRAME_DURATION_UNIT)
+			{
+				scene->frame_duration -= FRAME_DURATION_UNIT;
+			}
+		}
+		
+		if (keycode == 53 || keycode == ESC)
+			exit(0);
+		return (0);
+	}
+
+	int loop(void *param)
+	{
+		t_scene *scene;
+		static int t = 0;
+
+		t++; 
+		scene = (t_scene*)param;
+		if (t >= scene->frame_duration && scene->animate)
+		{
+			t = 0;
 			if (++scene->active_camera == scene->camera_count)
 				scene->active_camera = 0;
 			render_frame(*scene);
 		}
-		if (keycode == 53 || keycode == ESC)
-			exit(0);
 		return (0);
 	}
 

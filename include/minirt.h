@@ -26,6 +26,7 @@
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 # define ESC 65307
+# define FRAME_DURATION_UNIT 5000
 
 
 typedef struct	s_point
@@ -130,6 +131,9 @@ typedef struct	s_scene
 	int			active_camera;
 	t_figure	*figure_list;
 	int			figure_count;
+	int			animate;
+	int			frame_duration;
+	int			save_to_file;
 }	            t_scene;
 
 typedef struct	s_parse_args
@@ -178,7 +182,8 @@ typedef struct	s_drawable
 
 void		init_win(t_scene scene);
 void 		print_vect(t_vect vect, char *str); // dont kep lpplz
-int			interact(int keycode, void *thing);
+int			interact(int keycode, void *param);
+int			loop(void *param);
 
 
 t_sphere	create_sphere(t_parse_args parsed);
@@ -247,6 +252,7 @@ int			rgb_to_int(t_color color);
 t_color		rgb_color_intensity(t_color, float intensity);
 t_color		color_intensity(int color, float intensity);
 int			weighted_average(t_color base, t_color reflected, float weight1);
+int        	name_cmp(char *fixed, char *var);
 
 void		clean_exit(int status, char *msg);
 t_scene		parse_scene(char *scene_file_path, t_drawable *drawable_list);
