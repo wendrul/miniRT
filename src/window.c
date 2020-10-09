@@ -132,8 +132,6 @@ void	render_frame(t_scene scene)
 
 	void	mlx_init_win(t_scene scene)
 	{
-		if (!(g_win.mlx = mlx_init()))
-			clean_exit(1, "Failed to set up the connection to the graphical system.");
 		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.x, scene.resolution.y, "miniRT");
 		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.x, scene.resolution.y);
 		g_win.buffer = (int*)mlx_get_data_addr(g_win.img, &g_win.bpp, &g_win.s_l, &g_win.endian);

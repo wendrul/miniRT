@@ -13,6 +13,21 @@
 #include "minirt.h"
 #include <time.h>
 
+t_scene pre_init_mlx(t_scene scene)
+{
+	int x;
+	int y;
+
+	if (!(g_win.mlx = mlx_init()))
+		clean_exit(1, "Failed to set up the connection to the graphical system.");
+	mlx_get_screen_size(g_win.mlx, &x, &y);
+	if (scene.resolution.x > x)
+		scene.resolution.x = x;
+	if (scene.resolution.y > y)
+		scene.resolution.y = y;
+	return (scene);
+}
+
 void init_ray_tables(t_scene scene)
 {
 	while (scene.active_camera < scene.camera_count)
@@ -93,6 +108,7 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "tr", create_triangle);
 	scene = parse_scene(argv[1], drawables);
 	scene = parse_console_args(scene, argc, argv);
+	scene = pre_init_mlx(scene);
 	scene.scene_name = argv[1];
 	scene.scene_name[MAX_FILE_NAME_SIZE - 1] = 0;
 	init_ray_tables(scene);
