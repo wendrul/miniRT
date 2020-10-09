@@ -108,7 +108,8 @@ int		main(int argc, char **argv)
 	add_drawable(&drawables, "tr", create_triangle);
 	scene = parse_scene(argv[1], drawables);
 	scene = parse_console_args(scene, argc, argv);
-	scene = pre_init_mlx(scene);
+	if (!scene.save_to_file)
+		scene = pre_init_mlx(scene);
 	scene.scene_name = argv[1];
 	scene.scene_name[MAX_FILE_NAME_SIZE - 1] = 0;
 	init_ray_tables(scene);
