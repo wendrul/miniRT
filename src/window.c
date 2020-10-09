@@ -125,8 +125,8 @@ void	render_frame(t_scene scene)
 			t = 0;
 			if (++scene->active_camera == scene->camera_count)
 				scene->active_camera = 0;
-			render_frame(*scene);
 		}
+		render_frame(*scene);
 		return (0);
 	}
 
@@ -134,8 +134,8 @@ void	render_frame(t_scene scene)
 	{
 		if (!(g_win.mlx = mlx_init()))
 			clean_exit(1, "Failed to set up the connection to the graphical system.");
-		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.y, scene.resolution.x, "miniRT");
-		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.y, scene.resolution.x);
+		g_win.win = mlx_new_window(g_win.mlx, scene.resolution.x, scene.resolution.y, "miniRT");
+		g_win.img = mlx_new_image(g_win.mlx, scene.resolution.x, scene.resolution.y);
 		g_win.buffer = (int*)mlx_get_data_addr(g_win.img, &g_win.bpp, &g_win.s_l, &g_win.endian);
 	}
 
@@ -156,7 +156,7 @@ void	render_frame(t_scene scene)
 			while (++j < (int)scene.resolution.x)
 			{
 				color = trace_ray(ray_table[i][j], scene, start, -1, 0, stack);
-				buf[j + i * (int)scene.resolution.y] = gamma_corrected(color, one_over_gamma);
+				buf[j + i * (int)scene.resolution.x] = gamma_corrected(color, one_over_gamma);
 			}
 		}
 		return (buf);
@@ -173,7 +173,7 @@ void	render_frame(t_scene scene)
 			j = -1;
 			while (++j < (int)scene.resolution.x)
 			{
-				g_win.buffer[j + i * (int)scene.resolution.y] = scene.camera_list[scene.active_camera].buf[j + i * (int)scene.resolution.y];
+				g_win.buffer[j + i * (int)scene.resolution.x] = scene.camera_list[scene.active_camera].buf[j + i * (int)scene.resolution.x];
 			}
 		}
 		mlx_put_image_to_window(g_win.mlx, g_win.win, g_win.img, 0, 0);

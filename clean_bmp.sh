@@ -1,0 +1,1 @@
+rm -f scenes/*.bmp

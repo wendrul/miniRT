@@ -5,6 +5,8 @@
 # include "utility.h"
 # include <math.h>
 # include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -27,6 +29,7 @@
 # define RIGHT_ARROW 65363
 # define ESC 65307
 # define FRAME_DURATION_UNIT 5000
+# define MAX_FILE_NAME_SIZE 512
 
 
 typedef struct	s_point
@@ -119,6 +122,7 @@ typedef struct	s_polynome
 
 typedef struct	s_scene
 {
+	char		*scene_name;
 	t_vect		resolution;
 	t_point		spotlight;
 	t_vect		light_color;
@@ -260,6 +264,8 @@ float		ft_atof(char *nb);
 void		add_drawable(t_drawable **drawables, char *name, t_figure (*create_func)(t_parse_args parsed));
 int			trace_ray(t_vect ray, t_scene scene, t_point start, int	prev_index, int ignore, t_r_stack stack);
 double		angle(t_vect v1, t_vect v2);
+
+int			save_to_bmp(t_scene scene);
 
 void		mlx_init_win(t_scene scene);
 void		mlx_render_frame(t_scene scene);
