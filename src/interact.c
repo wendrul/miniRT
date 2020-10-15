@@ -35,8 +35,6 @@ int			interact(int keycode, void *param)
 	t_scene *scene;
 
 	scene = (t_scene *)param;
-	ft_putnbr_fd(keycode, 1);
-	ft_putchar_fd('\n', 1);
 	if (!scene->animate)
 	{
 		if (keycode == LEFT_ARROW && scene->camera_count != 1)
