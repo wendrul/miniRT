@@ -13,22 +13,7 @@
 #include "minirt.h"
 #include <time.h>
 
-t_scene pre_init_mlx(t_scene scene)
-{
-	int x;
-	int y;
-
-	if (!(g_win.mlx = mlx_init()))
-		clean_exit(1, "Failed to set up the connection to the graphical system.");
-	mlx_get_screen_size(g_win.mlx, &x, &y);
-	if (scene.resolution.x > x)
-		scene.resolution.x = x;
-	if (scene.resolution.y > y)
-		scene.resolution.y = y;
-	return (scene);
-}
-
-void init_ray_tables(t_scene scene)
+void	init_ray_tables(t_scene scene)
 {
 	while (scene.active_camera < scene.camera_count)
 	{
@@ -38,17 +23,17 @@ void init_ray_tables(t_scene scene)
 	scene.active_camera = 0;
 }
 
-void init_buffers(t_scene scene)
+void	init_buffers(t_scene scene)
 {
-	int i;
-	t_camera c;
+	int			i;
+	t_camera	c;
 
 	i = 0;
 	while (i < scene.camera_count)
 	{
 		scene.active_camera = i;
 		c = scene.camera_list[i];
-		c.buf = get_buffer(c.ray_table, scene, c.location, stack);
+		c.buf = get_buffer(c.ray_table, scene, c.location);
 		scene.camera_list[i] = c;
 		i++;
 	}
@@ -58,10 +43,10 @@ void init_buffers(t_scene scene)
 t_scene	parse_console_args(t_scene scene, int argc, char **argv)
 {
 	int i;
+
 	scene.animate = 0;
 	scene.frame_duration = FRAME_DURATION_UNIT * 3;
 	scene.save_to_file = 0;
-	
 	i = 0;
 	while (++i < argc)
 	{
@@ -76,16 +61,29 @@ t_scene	parse_console_args(t_scene scene, int argc, char **argv)
 			ft_putstr_fd("Scene will be animated\n", 1);
 			if (i + 1 < argc && ft_isdigit(argv[i + 1][0]))
 			{
-				scene.frame_duration = FRAME_DURATION_UNIT * ft_atoi(argv[i + 1]);
+				scene.frame_duration = FRAME_DURATION_UNIT
+					* ft_atoi(argv[i + 1]);
 			}
 		}
 	}
 	return (scene);
 }
 
-int		exit_hook()
+void	continue_main(t_scene scene)
 {
-	exit(0);
+	scene.scene_name[MAX_FILE_NAME_SIZE - 1] = 0;
+	init_ray_tables(scene);
+	init_buffers(scene);
+	if (!scene.save_to_file)
+	{
+		init_win(scene);
+		mlx_hook(g_win.win, 33, 0, exit_hook, NULL);
+		mlx_loop_hook(g_win.mlx, loop, (void*)&scene);
+		mlx_key_hook(g_win.win, interact, (void*)&scene);
+		mlx_loop(g_win.mlx);
+	}
+	else
+		save_to_bmp(scene);
 }
 
 int		main(int argc, char **argv)
@@ -111,21 +109,6 @@ int		main(int argc, char **argv)
 	if (!scene.save_to_file)
 		scene = pre_init_mlx(scene);
 	scene.scene_name = argv[1];
-	scene.scene_name[MAX_FILE_NAME_SIZE - 1] = 0;
-	init_ray_tables(scene);
-	init_buffers(scene);
-	stack = create_stack(MAX_RECURSION_DEPTH + 69, 1);
-	if (!scene.save_to_file)
-	{
-		init_win(scene);
-		mlx_hook(g_win.win, 33, 0, exit_hook, NULL);
-		mlx_loop_hook(g_win.mlx, loop, (void*)&scene);
-		mlx_key_hook(g_win.win, interact, (void*)&scene);
-		mlx_loop(g_win.mlx);
-	}
-	else
-	{
-		save_to_bmp(scene);
-	}
+	continue_main(scene);
 	return (0);
 }

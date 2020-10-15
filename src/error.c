@@ -13,13 +13,13 @@
 #include "minirt.h"
 #include <stdlib.h>
 
-void    clean_exit(int status, char *str)
+void	clean_exit(int status, char *str)
 {
-    if (status != 0)
-        ft_putstr_fd("Error\n", 1);
-    if  (str)
-        ft_putstr_fd(str, 1);
-    ft_putstr_fd("\nExiting program...\n", 1);
-    ft_putchar_fd('\n', 1);
-    exit(status);
+	if (status != 0)
+		ft_putstr_fd("Error\n", 1);
+	if (str)
+		ft_putstr_fd(str, 1);
+	ft_putstr_fd("\nExiting program...\n", 1);
+	ft_putchar_fd('\n', 1);
+	exit(status);
 }

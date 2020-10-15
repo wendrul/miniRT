@@ -29,7 +29,6 @@ SRCS	=	ft_memset.c\
 			ft_strrchr.c\
 			ft_strncmp.c\
 			ft_strlcpy.c\
-			ft_strlcat.c\
 			ft_strnstr.c\
 			ft_atoi.c\
 			ft_calloc.c\
@@ -61,8 +60,7 @@ BONUS	=	ft_lstadd_front.c\
 			ft_lstlast.c\
 			ft_lstiter.c\
 			ft_lstdelone.c\
-			ft_lstclear.c\
-			ft_lstmap.c	
+			ft_lstclear.c
 
 OBJS	=	${SRCS:.c=.o}
 

@@ -40,7 +40,6 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 char			*ft_strnstr(const char *hay, const char *need, size_t len);
 int				ft_atoi(const char *nptr);
 void			*ft_calloc(size_t count, size_t size);
@@ -74,6 +73,5 @@ t_list			*ft_lstlast(t_list *lst);
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
-t_list			*ft_lstmap(t_list *l, void *(*f)(void *), void (*d)(void *));
 
 #endif

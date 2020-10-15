@@ -1,27 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utility.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/12 20:48:16 by ede-thom          #+#    #+#             */
+/*   Updated: 2020/10/14 21:33:41 by ede-thom         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILITY_H
 # define UTILITY_H
 
-typedef struct  s_refractive_medium
-{
-	float       refractive_index;
-	int         index;
-}               t_refractive_medium;
+# include "rt_objs.h"
 
-typedef struct  s_r_stack
+typedef struct	s_parse_args
 {
-	int                         top;
-	int                         capacity;
-	t_refractive_medium         *array;
-}               t_r_stack;
+	char	name[MAX_FIGURE_NAME_LENGTH];
+	float	args[MAX_PARSE_FIGURE_ARGUMENTS + 5];
+	int		size;
+}				t_parse_args;
 
-/*  stack functions */
-t_r_stack     	create_stack(int size, float first_refractive);
-float      		peek(t_r_stack stack);
-float       	peek_index(t_r_stack stack);
-void        	pop(t_r_stack *stack_ptr);
-void        	push(t_r_stack *stack_ptr, float new_value, int new_index);
-int         	is_empty(t_r_stack stack);
-int				is_full(t_r_stack stack);
-/*  stack functions */
+int				name_cmp(char *fixed, char *var);
+float			ft_atof(char *nb);
+int				tab_del_return(char **tab, int ret);
+int				gamma_corrected(int color, double one_over_gamma);
 
 #endif

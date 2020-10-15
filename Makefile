@@ -11,17 +11,24 @@
 # **************************************************************************** #
 
 SRCS		=	src/minirt.c\
-				src/setup_win.c\
-				src/vector_ops.c\
+				src/vector_ops0.c\
+				src/vector_ops1.c\
+				src/vector_ops2.c\
+				src/vector_ops3.c\
 				src/raytrace.c\
-				src/reflection.c\
-				src/color_ops.c\
+				src/ray_ops.c\
+				src/color_ops0.c\
+				src/color_ops1.c\
 				src/ft_atof.c\
 				src/error.c\
-				src/parsing.c\
+				src/parsing2.c\
+				src/parsing1.c\
+				src/parsing0.c\
 				src/window.c\
-				src/stack.c\
-				src/save_to_bmp.c\
+				src/save_to_bmp0.c\
+				src/save_to_bmp1.c\
+				src/interact.c\
+				src/raytable.c\
 
 SRCS		+=	src/plane_ops.c\
 				src/sphere_ops.c\
