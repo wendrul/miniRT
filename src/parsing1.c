@@ -6,31 +6,16 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 20:09:06 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/14 20:24:54 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/15 20:18:37 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		count_cameras(char **lines)
-{
-	int count;
-
-	count = 0;
-	while (*lines)
-	{
-		if ((*lines)[0] == 'c' && ft_indexof((*lines)[1], " \t") > -1)
-			count++;
-		lines++;
-	}
-	if (count == 0)
-		clean_exit(1, "No cameras found in the scene.");
-	return (count);
-}
-
 t_scene	check_light(t_scene scene, t_parse_args parsed)
 {
-	float args[MAX_PARSE_FIGURE_ARGUMENTS];
+	float		args[MAX_PARSE_FIGURE_ARGUMENTS];
+	static int	i = 0;
 
 	ft_memcpy(args, parsed.args, parsed.size * sizeof(float));
 	if (parsed.size != 7)
@@ -40,12 +25,13 @@ t_scene	check_light(t_scene scene, t_parse_args parsed)
 	if (args[4] > 255 || args[5] > 255 || args[6] > 255 ||
 		args[4] < 0 || args[5] < 0 || args[6] < 0)
 		clean_exit(1, "RGB values for light must be between 0 and 255");
-	scene.spotlight = new_vect(parsed.args[0], parsed.args[1], parsed.args[2]);
-	scene.light_ratio = args[3];
-	scene.light_color = new_vect(parsed.args[4],
+	scene.light_list[i].pos = new_vect(args[0], args[1], args[2]);
+	scene.light_list[i].ratio = args[3];
+	scene.light_list[i].color = new_vect(parsed.args[4],
 						parsed.args[5], parsed.args[6]);
-	scene.adj_light_color = rgb_to_int(rgb_color_intensity(
-						new_color_vect(scene.light_color), scene.light_ratio));
+	scene.light_list[i].adj_color = rgb_to_int(rgb_color_intensity(
+		new_color_vect(scene.light_list[i].color), scene.light_list[i].ratio));
+	i++;
 	return (scene);
 }
 

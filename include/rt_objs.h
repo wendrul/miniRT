@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 20:12:47 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/15 14:34:49 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/15 20:18:00 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,26 @@ typedef struct	s_polynome
 	float		sqrt_delta;
 }				t_polynome;
 
+typedef struct	s_light
+{
+	int			adj_color;
+	t_vect		color;
+	t_vect		pos;
+	float		ratio;
+}				t_light;
+
 typedef struct	s_scene
 {
 	char		*scene_name;
 	t_vect		resolution;
-	t_point		spotlight;
-	t_vect		light_color;
-	int			adj_light_color;
-	float		light_ratio;
 	t_vect		amb_light_color;
 	float		amb_light_ratio;
 	t_camera	*camera_list;
+	t_light		*light_list;
+	t_figure	*figure_list;
+	int			light_count;
 	int			camera_count;
 	int			active_camera;
-	t_figure	*figure_list;
 	int			figure_count;
 	int			animate;
 	int			frame_duration;
@@ -99,6 +105,7 @@ typedef struct	s_inters
 	t_vect	pos;
 	float	distance;
 	int		index;
+	int		refl_color;
 }				t_inters;
 
 typedef struct	s_drawable
@@ -133,6 +140,7 @@ t_scene			check_camera(t_scene scene, t_parse_args parsed);
 t_scene			check_resolution(t_scene scene, t_parse_args parsed);
 t_scene			count_figures(char **lines, t_drawable *drawables);
 int				count_cameras(char **lines);
+int				count_lights(char **lines);
 void			count_res_ambient(char **lines);
 char			**read_lines(int fd);
 t_scene			parse_switch(t_scene s, t_parse_args p, t_drawable *drawa);

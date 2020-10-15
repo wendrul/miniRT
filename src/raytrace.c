@@ -6,13 +6,13 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 19:15:30 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/10/15 12:55:03 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/15 20:20:42 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_inters	get_closest(t_scene s, t_vect ray, t_vect start)
+static t_inters	get_closest(t_scene s, t_vect ray, t_vect start)
 {
 	int			i;
 	t_inters	inter;
@@ -34,31 +34,58 @@ t_inters	get_closest(t_scene s, t_vect ray, t_vect start)
 	return (closest);
 }
 
-int			get_inter_color(t_scene s, t_inters closest,
-							t_vect start, int refl_col)
+static int		get_inter_color(t_scene s, t_inters closest,
+							t_vect start, int light)
 {
 	float	lum_intensity;
 	int		i;
 
 	lum_intensity = get_lum_intensity(s.figure_list[closest.index],
-					closest.pos, s.spotlight, start);
+					closest.pos, s.light_list[light].pos, start);
 	lum_intensity = (1 - s.amb_light_ratio) * lum_intensity + s.amb_light_ratio;
 	i = -1;
 	while (++i < s.figure_count)
 	{
 		if (i == closest.index)
 			continue;
-		if (figure_eclipses_light(closest.pos, s.figure_list[i], s.spotlight))
+		if (figure_eclipses_light(closest.pos,
+					s.figure_list[i], s.light_list[light].pos))
 		{
 			lum_intensity = s.amb_light_ratio;
 			break ;
 		}
 	}
 	return (filter_color(color_shade(lum_intensity,
-			s.figure_list[closest.index], refl_col), s.adj_light_color));
+			s.figure_list[closest.index], closest.refl_color),
+			s.light_list[light].adj_color));
 }
 
-int			get_refl_color(t_scene s, t_inters closest,
+static int		mix_colors(t_scene s, t_inters closest, t_vect start)
+{
+	int		i;
+	int		flag;
+	int		color;
+	t_color total;
+	t_color tmp;
+
+	i = -1;
+	total = new_color(0, 0, 0);
+	flag = 0;
+	while (++i < s.light_count)
+	{
+		color = get_inter_color(s, closest, start, i);
+		tmp = int_to_rgb(color);
+		total.red += tmp.red;
+		total.blue += tmp.blue;
+		total.green += tmp.green;
+	}
+	total.red /= s.light_count;
+	total.blue /= s.light_count;
+	total.green /= s.light_count;
+	return (rgb_to_int(total));
+}
+
+int				get_refl_color(t_scene s, t_inters closest,
 							t_vect ray, t_vect start)
 {
 	int		refl_col;
@@ -75,9 +102,8 @@ int			get_refl_color(t_scene s, t_inters closest,
 	return (refl_col);
 }
 
-int			trace_ray(t_vect ray, t_scene s, t_point start)
+int				trace_ray(t_vect ray, t_scene s, t_point start)
 {
-	int			refl_col;
 	static int	current_recursion_depth = 0;
 	t_inters	closest;
 
@@ -89,9 +115,9 @@ int			trace_ray(t_vect ray, t_scene s, t_point start)
 	closest = get_closest(s, ray, start);
 	if (closest.distance < RENDER_DISTANCE)
 	{
-		refl_col = get_refl_color(s, closest, ray, start);
+		closest.refl_color = get_refl_color(s, closest, ray, start);
 		current_recursion_depth--;
-		return (get_inter_color(s, closest, start, refl_col));
+		return (mix_colors(s, closest, start));
 	}
 	current_recursion_depth--;
 	return (rgb_to_int(new_color(s.amb_light_color.x,

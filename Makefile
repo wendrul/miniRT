@@ -21,6 +21,7 @@ SRCS		=	src/minirt.c\
 				src/color_ops1.c\
 				src/ft_atof.c\
 				src/error.c\
+				src/parsing3.c\
 				src/parsing2.c\
 				src/parsing1.c\
 				src/parsing0.c\

@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:58:24 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/14 20:39:52 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/15 18:47:12 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,24 @@ t_scene	build_scene(t_scene scene, char **lines, t_drawable *drawables)
 		clean_exit(1, "Failed to build scene, malloc failed");
 	scene.active_camera = 0;
 	scene.camera_count = count_cameras(lines);
+	scene.light_count = count_lights(lines);
 	count_res_ambient(lines);
 	if (!(scene.camera_list =
 		(t_camera*)malloc(sizeof(t_camera) * scene.camera_count)))
+		clean_exit(1, "Failed to build scene, malloc failed");
+	if (!(scene.light_list =
+		(t_light*)malloc(sizeof(t_light) * ft_max(scene.light_count, 1))))
 		clean_exit(1, "Failed to build scene, malloc failed");
 	while (*lines)
 	{
 		scene = parse_line(scene, *lines, drawables);
 		free(*lines++);
 	}
+	if (scene.light_count > 0)
+		return (scene);
+	scene.light_list[0].pos = new_vect(0, 0, 0);
+	scene.light_list[0].adj_color = rgb_to_int(rgb_color_intensity(
+		new_color(255, 255, 255), scene.amb_light_ratio));
 	return (scene);
 }
 

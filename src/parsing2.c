@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 19:03:36 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/14 20:28:45 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/15 17:53:34 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ t_scene	count_figures(char **lines, t_drawable *drawables)
 	t_scene scene;
 
 	scene.resolution = new_vect(WIN_WIDTH, WIN_HEIGHT, 0);
-	scene.spotlight = new_vect(0, 0, 0);
-	scene.light_color = new_vect(255, 255, 255);
-	scene.light_ratio = 1;
 	scene.amb_light_ratio = 0.6;
 	scene.amb_light_color = new_vect(255, 255, 255);
 	scene.figure_count = 0;
