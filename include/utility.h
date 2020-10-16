@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 20:48:16 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/14 21:33:41 by ede-thom         ###   ########.fr       */
+/*   Created: 2020/10/12 20:48:16 by agoodwin          #+#    #+#             */
+/*   Updated: 2020/10/14 21:33:41 by agoodwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int				name_cmp(char *fixed, char *var);
 float			ft_atof(char *nb);
 int				tab_del_return(char **tab, int ret);
 int				gamma_corrected(int color, double one_over_gamma);
+int				sn(float f);
 
 #endif

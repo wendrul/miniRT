@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/10/16 18:45:26 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/16 18:53:52 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,32 +66,32 @@ static int	final_square_condition(t_vect u, t_vect width, t_vect h, t_figure s)
 			&& dot(u, h) > 0));
 }
 
-t_point		square_intersection(t_square square, t_vect ray, t_point start)
+t_point		square_intersection(t_square s, t_vect ray, t_point start)
 {
 	t_vect	result;
 	t_vect	u;
-	t_vect	width;
+	t_vect	w;
 	t_vect	height;
 	double	r1;
 
 	result = new_vect(RENDER_DISTANCE, RENDER_DISTANCE, RENDER_DISTANCE);
-	if (dot(square.normal, ray) == 0)
+	if (dot(s.normal, ray) == 0)
 		return (result);
-	if ((r1 = (dot(square.center, square.normal)
-			- dot(square.normal, start)) / dot(square.normal, ray)) <= 0)
+	if ((r1 = (dot(s.center, s.normal)
+			- dot(s.normal, start)) / dot(s.normal, ray)) <= 0)
 		return (result);
 	result = new_vect(start.x + r1 * ray.x, start.y + r1 * ray.y,
 							start.z + r1 * ray.z);
-	u = subtract(result, square.center);
-	if (fabs(square.normal.x) < fabs(square.normal.z))
-		width = new_vect(1,0,0);
+	u = subtract(result, s.center);
+	if (fabs(s.normal.x) < fabs(s.normal.z))
+		w = new_vect(1,0,0);
 	else
-		width = new_vect(0,0,1);
-	width = subtract(width, projection(width, square.normal));
-	if (fabs(square.normal.x) < EPSILON && fabs(square.normal.z) < EPSILON)
-		width = new_vect(1,0,0);
-	height = cross(scale(square.normal, sign(sqaure.normal.x)), width);
-	if (!final_square_condition(u, width, height, square))
+		w = new_vect(0,0,1);
+	w = subtract(w, projection(w, s.normal));
+	if (fabs(s.normal.x) < EPSILON && fabs(s.normal.z) < EPSILON)
+		w = new_vect(1,0,0);
+	height = cross(scale(s.normal, sign(s.normal.x)), w);
+	if (!final_square_condition(u, w, height, s))
 		result = new_vect(RENDER_DISTANCE, RENDER_DISTANCE, RENDER_DISTANCE);
 	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/08 12:54:07 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/15 14:44:21 by ede-thom         ###   ########.fr       */
+/*   Created: 2019/12/08 12:54:07 by agoodwin          #+#    #+#             */
+/*   Updated: 2020/10/15 14:44:21 by agoodwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,9 @@ int		gamma_corrected(int color, double one_over_gamma)
 	rgb.green = pow(rgb.green, one_over_gamma);
 	rgb.blue = pow(rgb.blue, one_over_gamma);
 	return (fcolor_to_int(rgb));
+}
+
+int		sn(float f)
+{
+	return (f >= 0 ? 1 : -1);
 }

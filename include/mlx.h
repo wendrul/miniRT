@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/12 20:23:02 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/12 20:33:38 by ede-thom         ###   ########.fr       */
+/*   Created: 2020/10/12 20:23:02 by agoodwin          #+#    #+#             */
+/*   Updated: 2020/10/12 20:33:38 by agoodwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **
 ** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
 ** Last update Tue May 15 16:23:28 2007 Olivier Crouzet
-** Used by ede-thom 2020
+** Used by agoodwin 2020
 */
 
 /*
