@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+         #
+#    By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/11/16 17:26:10 by dhorvill          #+#    #+#              #
-#    Updated: 2020/06/13 20:33:40 by ede-thom         ###   ########.fr        #
+#    Created: 2019/11/16 17:26:10 by agoodwin          #+#    #+#              #
+#    Updated: 2020/06/13 20:33:40 by agoodwin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ clean:
 				@${RM} ${OBJS} $(SDL_OBJS)
 				@$(MKDIR_P) $(OBJ_DIR) $(SDL_OBJ_DIR)
 				@rmdir -p $(OBJ_DIR) $(SDL_OBJ_DIR)
-				@echo "$(CYAN)TIDY UP $(RED)pls$(RESET)"
+				@echo "$(CYAN)CLEANING$(RESET)"
 
 fclean:			clean
 				@${RM} ${NAME}

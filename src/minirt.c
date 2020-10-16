@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/24 22:07:25 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/06/13 18:57:40 by ede-thom         ###   ########.fr       */
+/*   Created: 2019/11/24 22:07:25 by agoodwin          #+#    #+#             */
+/*   Updated: 2020/06/13 18:57:40 by agoodwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		main(int argc, char **argv)
 
 	if (argc < 2)
 	{
-		ft_putendl_fd("pls file", 1);
+		ft_putendl_fd("No scene specified", 1);
 		return (0);
 	}
 	drawables = NULL;
