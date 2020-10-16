@@ -72,6 +72,7 @@ t_scene	parse_console_args(t_scene scene, int argc, char **argv)
 void	continue_main(t_scene scene)
 {
 	scene.scene_name[MAX_FILE_NAME_SIZE - 1] = 0;
+	ft_putstr_fd("Rendering...\n", 1);
 	init_ray_tables(scene);
 	init_buffers(scene);
 	if (!scene.save_to_file)
