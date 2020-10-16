@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_objs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 20:12:47 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/15 20:18:00 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/16 20:59:02 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "rt_colors.h"
 
 # define WIN_HEIGHT 700
-# define EPSILON 0.0001
+# define EPSILON 0.00003453424
 # define WIN_WIDTH 700
 # define RENDER_DISTANCE 100000000
 # define MIN_RENDER_DIST 0.001

@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 20:09:06 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/16 20:33:15 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/16 20:59:15 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_scene	check_light(t_scene scene, t_parse_args parsed)
 	if (args[4] > 255 || args[5] > 255 || args[6] > 255 ||
 		args[4] < 0 || args[5] < 0 || args[6] < 0)
 		clean_exit(1, "RGB values for light must be between 0 and 255");
-	scene.light_list[i].pos = new_vect(args[0], args[1], args[2]);
+	scene.light_list[i].pos = new_vect(args[0] + 10 * EPSILON,
+				args[1] + 10 * EPSILON, args[2] + 10 * EPSILON);
 	scene.light_list[i].ratio = args[3];
 	scene.light_list[i].color = new_vect(parsed.args[4],
 						parsed.args[5], parsed.args[6]);
