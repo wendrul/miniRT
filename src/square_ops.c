@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/10/16 18:53:52 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/16 19:07:10 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,13 @@ t_point		square_intersection(t_square s, t_vect ray, t_point start)
 	result = new_vect(start.x + r1 * ray.x, start.y + r1 * ray.y,
 							start.z + r1 * ray.z);
 	u = subtract(result, s.center);
-	if (fabs(s.normal.x) < fabs(s.normal.z))
-		w = new_vect(1,0,0);
-	else
-		w = new_vect(0,0,1);
+	w = new_vect(1, 0, 0);
+	w = fabs(s.normal.x) < fabs(s.normal.z) ? w : new_vect(0, 0, 1);
 	w = subtract(w, projection(w, s.normal));
 	if (fabs(s.normal.x) < EPSILON && fabs(s.normal.z) < EPSILON)
-		w = new_vect(1,0,0);
-	height = cross(scale(s.normal, sign(s.normal.x)), w);
+		w = new_vect(1, 0, 0);
+	height = cross(scale(s.normal,
+		sn(fabs(s.normal.z) < fabs(s.normal.x) ? s.normal.x : s.normal.z)), w);
 	if (!final_square_condition(u, w, height, s))
 		result = new_vect(RENDER_DISTANCE, RENDER_DISTANCE, RENDER_DISTANCE);
 	return (result);
