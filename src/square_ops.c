@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:01:17 by dhorvill          #+#    #+#             */
-/*   Updated: 2020/10/14 19:05:38 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/16 17:00:11 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_point		square_intersection(t_square square, t_vect ray, t_point start)
 	if (square.normal.x != 0)
 		width = normalize(new_vect((square.normal.z) / square.normal.x, 0, -1));
 	else if (square.normal.z != 0)
-		width = normalize(new_vect((square.normal.x) / square.normal.z, 0, -1));
+		width = normalize(new_vect(1, 0, -square.normal.x / square.normal.z));
 	else
 		width = new_vect(1, 0, 0);
 	height = cross(square.normal, width);
