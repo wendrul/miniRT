@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:58:24 by ede-thom          #+#    #+#             */
-/*   Updated: 2020/10/16 20:34:41 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/16 22:40:06 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,14 @@ t_scene	parse_scene(char *scene_path, t_drawable *drawables)
 	int			fd;
 	char		**lines;
 	t_scene		scene;
+	size_t		len;
 
+	len = ft_strlen(scene_path);
+	if (len < 4 ||
+		scene_path[len - 3] != '.' ||
+		scene_path[len - 2] != 'r' ||
+		scene_path[len - 1] != 't')
+		clean_exit(1, "Please provide a valid .rt file");
 	if ((fd = open(scene_path, O_RDONLY)) == -1)
 		clean_exit(1, "Failed to open file");
 	lines = read_lines(fd);
