@@ -4,10 +4,10 @@ A 0.05 0xffffff
 
 c 0,10,0 0,0,1	70
 
-l 20,10,0	0.5 0xffffff
-l -20,10,0	0.5 0xffffff
+l 20,10,0	0.4 0xffffff
+l -20,10,0	0.4 0xffffff
 
-pl 0,0,0 0,1,0 0xbbbbbb
+pl 0,0,0 0,1,0 0xbbbbbb 0.1
 pl 0,20,0 0,1,0 0x222222
 pl 0,0,90 0,0,1 0x1111ff
 
@@ -27,4 +27,4 @@ cy 10,0,70 0,1,0 5 20 0xdddddd
 sp 10,0,70 7 0xdddddd
 sp 10,20,70 7 0xdddddd
 
-sp 0,3,30 3 0xff0000
+sp 0,2.5,40 5 0xaa0000 0.3
