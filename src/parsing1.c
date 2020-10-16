@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 20:09:06 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/15 20:18:37 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/16 20:33:15 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_scene	check_light(t_scene scene, t_parse_args parsed)
 	scene.light_list[i].ratio = args[3];
 	scene.light_list[i].color = new_vect(parsed.args[4],
 						parsed.args[5], parsed.args[6]);
-	scene.light_list[i].adj_color = rgb_to_int(rgb_color_intensity(
-		new_color_vect(scene.light_list[i].color), scene.light_list[i].ratio));
+	scene.light_list[i].adj_color = rgb_to_int(
+						new_color_vect(scene.light_list[i].color));
 	i++;
 	return (scene);
 }

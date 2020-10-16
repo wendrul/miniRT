@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 19:15:30 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/15 20:20:42 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/16 20:32:03 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		get_inter_color(t_scene s, t_inters closest,
 	int		i;
 
 	lum_intensity = get_lum_intensity(s.figure_list[closest.index],
-					closest.pos, s.light_list[light].pos, start);
+					closest.pos, s.light_list[light], start);
 	lum_intensity = (1 - s.amb_light_ratio) * lum_intensity + s.amb_light_ratio;
 	i = -1;
 	while (++i < s.figure_count)

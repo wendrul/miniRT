@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_ops.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 21:54:26 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/15 12:54:27 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/16 20:29:32 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,17 @@ int		color_shade(float intensity, t_figure figure, int reflective_color)
 }
 
 float	get_lum_intensity(t_figure figure, t_point inter,
-							t_point spotlight, t_point start)
+							t_light spotlight, t_point start)
 {
 	t_point	normal;
 	t_point	ray_to_light;
 	float	result;
 
 	normal = figure.get_normal_at(inter, figure, start);
-	ray_to_light = vector(inter, spotlight);
+	ray_to_light = vector(inter, spotlight.pos);
+	if (spotlight.ratio < EPSILON)
+		return (0);
 	if ((result = dot(normal, ray_to_light)) > 0)
-		return (result);
+		return (pow(result, 1 / spotlight.ratio));
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 20:17:20 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/15 14:30:20 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/16 20:32:16 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		add_drawable(t_drawable **drawables, char *name,
 
 int			color_shade(float intensity, t_figure figure, int reflective_color);
 float		get_lum_intensity(t_figure figure, t_point inter,
-							t_point spotlight, t_point start);
+							t_light spotlight, t_point start);
 
 int			trace_ray(t_vect ray, t_scene scene, t_point start);
 int			save_to_bmp(t_scene scene);
