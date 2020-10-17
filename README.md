@@ -14,7 +14,7 @@ We tried going for scenes like this example:
 
 And it turned out like this:
 
-![Pog champ win](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/unknown%20(8).png)
+![Pog champ win](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/unknown%20(8).png) epic victory royale
 
 And then `RTX ON`:
 
@@ -27,6 +27,9 @@ huh...
 
 ![still](https://raw.githubusercontent.com/wendrul/miniRT/master/img/4kbby.jpg)
 
+This sqaure is actually an Linf norm ball ( ͡° ͜ʖ ͡°)
+
+![skuaer](https://github.com/wendrul/miniRT/blob/master/img/trouble/unknown%20(7).png)
 
 ## Trouble
 
@@ -35,6 +38,11 @@ Not everything was pretty in this journey towards realism. But sometimes getting
 ![wtf norm Linf](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/trouble/norm_inf_scene7.jpg)
 
 ![mixing colors gone wrong](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/trouble/or_equals_in_light_add.jpg)
+
+![ariariariari](https://github.com/wendrul/miniRT/blob/master/img/trouble/unknown.png)
+
+You are supposed to render the triangle, not everything else...
+![inverse triangle](https://github.com/wendrul/miniRT/blob/master/img/trouble/unknown%20(6).png)
 
 ### using norm Linf instead of good ol L2
 
