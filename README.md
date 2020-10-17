@@ -38,6 +38,19 @@ Not everything was pretty in this journey towards realism. But sometimes getting
 
 #### using norm Linf instead of good ol L2
 
+This is a sphere supposedly:
+
+![not a sphere](https://github.com/wendrul/miniRT/blob/master/img/trouble/norm_inf0.jpg)
+
+zoom out
+
+![zoom no more](https://github.com/wendrul/miniRT/blob/master/img/trouble/norm_inf1.jpg)
+
+zoomer out 
+
+![zoom no morer](https://github.com/wendrul/miniRT/blob/master/img/trouble/norm_inf2.jpg)
+
+There are no more available zoomers to code this.
 
 this one is actually the [pillar scene](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/seven4k.jpg) lol.
 
