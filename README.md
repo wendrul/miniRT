@@ -12,9 +12,9 @@ We tried going for scenes like this example:
 
 ![not our footage](https://cdn.discordapp.com/attachments/618556901222907904/766714098649661440/unknown.png) `<- example`
 
-And it turned out like this:
+how it turned out:
 
-![Pog champ win](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/unknown%20(8).png) epic victory royale
+![Pog champ win](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/unknown%20(8).png)
 
 And then `RTX ON`:
 
@@ -27,13 +27,13 @@ huh...
 
 ![still](https://raw.githubusercontent.com/wendrul/miniRT/master/img/4kbby.jpg)
 
-This sqaure is actually an Linf norm ball ( ͡° ͜ʖ ͡°)
+This square is actually a Linf norm ball ( ͡° ͜ʖ ͡°)
 
 ![skuaer](https://github.com/wendrul/miniRT/blob/master/img/trouble/unknown%20(7).png)
 
 ## Trouble
 
-Not everything was pretty in this journey towards realism. But sometimes getting results that could not be further away from reality, had a beauty you cannot find in the real world...
+Not everything was pretty in this journey towards realism. But sometimes getting results that could not be further away from reality, is itself a beauty you cannot find in the real world
 
 ![wtf norm Linf](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/trouble/norm_inf_scene7.jpg)
 
