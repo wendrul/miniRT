@@ -16,7 +16,7 @@ And it turned out like this:
 
 ![Pog champ win](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/unknown%20(8).png)
 
-And then RTX ON:
+And then `RTX ON`:
 
 ![oh...](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/seven4k.jpg)
 
@@ -36,7 +36,7 @@ Not everything was pretty in this journey towards realism. But sometimes getting
 
 ![mixing colors gone wrong](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/trouble/or_equals_in_light_add.jpg)
 
-#### using norm Linf instead of good ol L2
+### using norm Linf instead of good ol L2
 
 This is a sphere supposedly:
 
@@ -52,11 +52,11 @@ zoomer out
 
 There are no more available zoomers to code this.
 
-this one is actually the [pillar scene](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/seven4k.jpg) lol.
+jk this one is actually the [pillar scene](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/seven4k.jpg) lol.
 
 ![wtf norm Linf](https://media.githubusercontent.com/media/wendrul/miniRT/master/img/trouble/norm_inf_scene7.jpg)
 
-#### Refraction
+### Refraction
 
 This is not a feature present on this ratracer (yet) and for a reason
 
