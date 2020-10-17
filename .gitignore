@@ -6,4 +6,5 @@ miniRT
 *.a
 sdl_miniRT
 .vscode
-*.bmp
+scenes/*/*.bmp
+scenes/*.bmp
