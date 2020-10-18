@@ -27,7 +27,7 @@ huh...
 
 ![still](https://raw.githubusercontent.com/wendrul/miniRT/master/img/4kbby.jpg)
 
-This square is actually a Linf norm ball ( ͡° ͜ʖ ͡°)
+This square is actually a [Linf norm ball](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSZ2lXGjaLv42FfWP13OqCodD4Rd69TPu_ABQ&usqp=CAU) ( ͡° ͜ʖ ͡°)
 
 ![skuaer](https://github.com/wendrul/miniRT/blob/master/img/trouble/unknown%20(7).png)
 
