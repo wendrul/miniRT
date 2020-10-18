@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 12:42:46 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/15 12:43:03 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/18 20:19:00 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,23 @@ t_vect	**turn_ray_table(t_vect **ray_table, t_scene s,
 	return (ray_table);
 }
 
+t_vect	rotate_vect(t_vect ori, t_vect ret)
+{
+	ret = normalize(ret);
+	ret = apply_rotation(ret, new_vect(1,0,0), M_PI * ori.x);
+	ret = apply_rotation(ret, new_vect(0,1,0), M_PI * ori.y);
+	ret = apply_rotation(ret, new_vect(0,0,1), M_PI * ori.z);
+	return (ret);
+}
+
 t_vect	**finish_tracer(t_scene s, t_point start,
 						t_vect step, t_vect **ray_table)
 {
 	int		i;
 	int		j;
-	float	theta;
-	t_vect	rot_axis;
+	t_vect	ori;
 
+	ori = s.camera_list[s.active_camera].orientation;
 	i = -1;
 	while (++i < s.resolution.y)
 	{
@@ -49,15 +58,10 @@ t_vect	**finish_tracer(t_scene s, t_point start,
 			ray_table[i][j].x = start.x + step.x * (float)j;
 			ray_table[i][j].y = start.y + step.y * (float)i;
 			ray_table[i][j].z = 1;
-			ray_table[i][j] = normalize(ray_table[i][j]);
+			ray_table[i][j] = rotate_vect(ori, ray_table[i][j]);
 		}
 	}
-	i = s.active_camera;
-	theta = angle(new_vect(0, 0, 1), s.camera_list[i].orientation);
-	rot_axis = cross(new_vect(0, 0, 1), s.camera_list[i].orientation);
-	if (norm(rot_axis) < EPSILON)
-		rot_axis = new_vect(0, 1, 0);
-	return (turn_ray_table(ray_table, s, rot_axis, theta));
+	return (ray_table);
 }
 
 t_vect	**init_tracer(t_scene s)
@@ -71,7 +75,6 @@ t_vect	**init_tracer(t_scene s)
 	if (!(ray_table = (t_vect**)malloc(sizeof(t_vect*) * s.resolution.y)))
 		clean_exit(1, "Malloc failed");
 	i = s.active_camera;
-	start = s.camera_list[i].orientation;
 	start.x = -sin(s.camera_list[i].fov / 2);
 	start.y = sin(s.camera_list[i].fov / 2 * (s.resolution.y / s.resolution.x));
 	start.z = 1;

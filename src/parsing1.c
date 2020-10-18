@@ -6,7 +6,7 @@
 /*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 20:09:06 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/16 20:59:15 by ede-thom         ###   ########.fr       */
+/*   Updated: 2020/10/18 20:18:55 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,6 @@ t_scene	check_camera(t_scene scene, t_parse_args parsed)
 	scene.camera_list[i].orientation =
 					new_vect(parsed.args[3], parsed.args[4], parsed.args[5]);
 	scene.camera_list[i].fov = args[6];
-	if (norm(scene.camera_list[i].orientation) < EPSILON)
-		clean_exit(1, "Camera orientation cannot be zero vector");
-	scene.camera_list[i].orientation =
-					normalize(scene.camera_list[i].orientation);
 	scene.camera_list[i].fov = args[6] * M_PI / 180;
 	i++;
 	return (scene);
