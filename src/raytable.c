@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 12:42:46 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/18 20:19:00 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/18 20:25:53 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_vect	**turn_ray_table(t_vect **ray_table, t_scene s,
 t_vect	rotate_vect(t_vect ori, t_vect ret)
 {
 	ret = normalize(ret);
-	ret = apply_rotation(ret, new_vect(1,0,0), M_PI * ori.x);
-	ret = apply_rotation(ret, new_vect(0,1,0), M_PI * ori.y);
-	ret = apply_rotation(ret, new_vect(0,0,1), M_PI * ori.z);
+	ret = apply_rotation(ret, new_vect(1, 0, 0), M_PI * ori.x);
+	ret = apply_rotation(ret, new_vect(0, 1, 0), M_PI * ori.y);
+	ret = apply_rotation(ret, new_vect(0, 0, 1), M_PI * ori.z);
 	return (ret);
 }
 
