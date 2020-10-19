@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agoodwin <agoodwin@42.edu.fr>              +#+  +:+       +#+        */
+/*   By: ede-thom <ede-thom@42.edu.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 19:58:24 by agoodwin          #+#    #+#             */
-/*   Updated: 2020/10/16 22:40:06 by agoodwin         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:08:53 by ede-thom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_scene	build_scene(t_scene scene, char **lines, t_drawable *drawables)
 		return (scene);
 	scene.light_list[0].pos = new_vect(0, 0, 0);
 	scene.light_list[0].adj_color = rgb_to_int(new_color(255, 255, 255));
-	scene.light_list[0].ratio = 1;
+	scene.light_list[0].ratio = 0;
 	scene.light_count = 1;
 	return (scene);
 }
